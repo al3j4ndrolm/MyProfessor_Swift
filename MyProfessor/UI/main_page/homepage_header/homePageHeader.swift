@@ -12,17 +12,17 @@ struct homePageHeader: View {
     var body: some View {
             HStack{
                 appLogo()
-                seperatorLogos
-                schoolLogo()
+//                seperatorLogos
+//                schoolLogo()
             }
     }
     
-    private var seperatorLogos: some View {
-        Rectangle()
-          .foregroundColor(.clear)
-          .frame(width: 1, height: 81)
-          .background(.black)
-    }
+//    private var seperatorLogos: some View {
+//        Rectangle()
+//          .foregroundColor(.clear)
+//          .frame(width: 1, height: 81)
+//          .background(.black)
+//    }
     
 }
 

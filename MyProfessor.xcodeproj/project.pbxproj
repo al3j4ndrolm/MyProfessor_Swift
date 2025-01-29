@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A96F33AA2D43698A00363912 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = A96F33A92D43698A00363912 /* SwiftSoup */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A96F32192D42FCD400363912 /* MyProfessor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyProfessor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A96F322B2D4300AB00363912 /* Exceptions for "MyProfessor" folder in "MyProfessor" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A96F32182D42FCD400363912 /* MyProfessor */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A96F321B2D42FCD400363912 /* MyProfessor */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A96F322B2D4300AB00363912 /* Exceptions for "MyProfessor" folder in "MyProfessor" target */,
+			);
 			path = MyProfessor;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A96F33AA2D43698A00363912 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +83,7 @@
 			);
 			name = MyProfessor;
 			packageProductDependencies = (
+				A96F33A92D43698A00363912 /* SwiftSoup */,
 			);
 			productName = MyProfessor;
 			productReference = A96F32192D42FCD400363912 /* MyProfessor.app */;
@@ -94,6 +113,9 @@
 			);
 			mainGroup = A96F32102D42FCD400363912;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A96F33A82D43698A00363912 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A96F321A2D42FCD400363912 /* Products */;
 			projectDirPath = "";
@@ -255,6 +277,7 @@
 				DEVELOPMENT_TEAM = 85MLCP9TQW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyProfessor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +307,7 @@
 				DEVELOPMENT_TEAM = 85MLCP9TQW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyProfessor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -324,6 +348,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A96F33A82D43698A00363912 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A96F33A92D43698A00363912 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A96F33A82D43698A00363912 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A96F32112D42FCD400363912 /* Project object */;
 }

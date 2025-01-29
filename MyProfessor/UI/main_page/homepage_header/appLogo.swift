@@ -8,27 +8,22 @@
 import SwiftUI
 
 struct appLogo: View {
-    
     var body: some View {
         ZStack {
             appTitle
             rowColoredDotsLogo()
-                .offset(x: 40,y: -15)
+                .offset(x: 50, y: -5)
         }
     }
-    
+
     private var appTitle: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: -10) {
             Text("My")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+                .font(.system(size: 40, weight: .bold))
+            .foregroundColor(.white)
             Text("Professor")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .offset(y: -8)
+                .font(.system(size: 40, weight: .bold))
+            .foregroundColor(.white)
         }
-        .frame(width: 173)
     }
-    
-    
 }
