@@ -1,0 +1,20 @@
+//
+//  SwiftUIView.swift
+//  MyProfessor-SwiftUI
+//
+//  Created by Leonard Wibowo on 1/10/25.
+//
+
+import SwiftUI
+
+struct navigationDir: View {
+    var body: some View {
+        NavigationStack {
+            homepage()
+        }
+    }
+}
+
+#Preview {
+    navigationDir()
+}
