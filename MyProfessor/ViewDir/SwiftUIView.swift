@@ -10,7 +10,7 @@ import SwiftUI
 struct navigationDir: View {
     var body: some View {
         NavigationStack {
-            homepage()
+            landingPage()
         }
     }
 }
