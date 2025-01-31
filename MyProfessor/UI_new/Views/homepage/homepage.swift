@@ -13,6 +13,8 @@ struct homepage: View {
             backgroundColor()
             VStack {
                 homepage_header()
+                homepage_body()
+                Spacer()
             }
         }
     }

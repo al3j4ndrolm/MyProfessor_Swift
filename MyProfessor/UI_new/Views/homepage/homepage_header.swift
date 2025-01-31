@@ -16,7 +16,6 @@ struct homepage_header: View {
             threeColorDotsAndMenuDropdown
             welcomeGuestUsername
             dateText
-            Spacer()
         }
         .padding(.leading, 20)
         .ignoresSafeArea()
@@ -36,7 +35,7 @@ struct homepage_header: View {
     //Notes: I dont know what kind of animation or feature you want here, so ill leave it for later
     private var menuDropdown: some View {
         Image(systemName: "line.3.horizontal")
-            .font(.system(size: 40, weight: .bold, design: .default))
+            .font(.system(size: 48, weight: .bold, design: .default))
             .foregroundStyle(.white)
     }
     
