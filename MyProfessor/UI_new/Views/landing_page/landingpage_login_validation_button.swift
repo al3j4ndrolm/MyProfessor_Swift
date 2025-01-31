@@ -18,6 +18,7 @@ struct landingPageLoginValidationButton: View {
             
             Button(action: {
                 login()
+
             }) {
                 guestButton
             }
@@ -26,9 +27,10 @@ struct landingPageLoginValidationButton: View {
     }
     
     private var guestButton: some View {
-        Text("or continue as a Guest")
+        NavigationLink("Or continue as a Guest", destination: homepage())
             .font(Font.custom("Lato-Bold", size: 15))
             .foregroundStyle(Color.white)
+            .padding(.top, 5)
     }
     
     private var studentButton: some View {
