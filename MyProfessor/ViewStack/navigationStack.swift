@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct navigationDir: View {
+struct userNavigationFlow: View {
     var body: some View {
         NavigationStack {
             landingPage()
@@ -16,5 +16,5 @@ struct navigationDir: View {
 }
 
 #Preview {
-    navigationDir()
+    userNavigationFlow()
 }
