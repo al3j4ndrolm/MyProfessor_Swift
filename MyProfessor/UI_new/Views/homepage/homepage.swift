@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct homepage: View {
+    
+    @State var username: String
+    
     var body: some View {
         ZStack {
             backgroundColor()
             VStack {
-                homepage_header()
+                homepage_header(username: username)
                 homepage_body()
                 Spacer()
                 
@@ -25,10 +28,10 @@ struct homepage: View {
                 //registerNavigation()
                     //.offset(y: 30)
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 
 #Preview {
-    homepage()
+    homepage(username: "Leonard")
 }

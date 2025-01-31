@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct landingPageLoginValidationButton: View {
+    
+    @State private var navigateAsGuest: Bool = false
+    
     var body: some View {
         VStack {
             Button(action: {
-                login()
+                loginHereButton()
             }) {
                 studentButton
             }
             
             Button(action: {
-                login()
+                continueAsGuest()
             }) {
                 guestButton
             }
         }
         .padding(.top, 59)
+        .navigationDestination(isPresented: $navigateAsGuest) {
+            homepage(username: "Guest")
+        }
     }
     
     private var guestButton: some View {
@@ -39,10 +45,13 @@ struct landingPageLoginValidationButton: View {
             .padding(.horizontal, 15)
             .background(RoundedRectangle(cornerRadius: 20).fill(Color(red: 0.82, green: 0.92, blue: 1)))
     }
-    //change with actual logic later
-    private func login() {
-        print("login pressed")
+    private func continueAsGuest() {
+        navigateAsGuest.toggle()
     }
+    private func loginHereButton() {
+        print("Login button pressed")
+    }
+    
 }
 
 #Preview {
