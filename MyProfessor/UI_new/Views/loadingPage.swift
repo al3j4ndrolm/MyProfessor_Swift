@@ -1,5 +1,5 @@
 //
-//  homepage_body.swift
+//  loadingPage.swift
 //  MyProfessor
 //
 //  Created by Leonard Wibowo on 1/31/25.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct homepage_body: View {
+struct loadingPage: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    homepage_body()
+    loadingPage()
 }

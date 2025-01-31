@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-//New ui colors
-
-let redNew = Color(red: 1, green: 0.7, blue: 0.7)
-let yellowNew = Color(red: 1, green: 0.93, blue: 0.56)
-let greenNew = Color(red: 0.83, green: 1, blue: 0.64)
-
 struct threeColorDots: View {
     
     var body: some View {
@@ -27,21 +21,21 @@ struct threeColorDots: View {
 struct newYellowCircle: View {
     var body: some View {
         Circle()
-            .foregroundStyle(yellowNew)
+            .foregroundStyle(yellow)
     }
 }
 
 struct newRedCircle: View {
     var body: some View {
         Circle()
-            .foregroundStyle(redNew)
+            .foregroundStyle(red)
     }
 }
 
 struct newGreenCircle: View {
     var body: some View {
         Circle()
-            .foregroundStyle(greenNew)
+            .foregroundStyle(green)
     }
 }
 
