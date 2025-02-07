@@ -40,6 +40,30 @@ struct backgroundColor: View {
     }
 }
 
+struct backgroundColorLight: View {
+    let gradient = LinearGradient(
+    gradient: Gradient(colors: [
+        .black,
+        .black.opacity(0.85),
+        .black.opacity(0.65),
+        .black.opacity(0.35)]),
+    startPoint: .top,
+    endPoint: .bottom
+)
+
+var body: some View {
+    ZStack {
+        HStack {
+            Spacer()
+            VStack {
+                Spacer()
+            }
+        }
+        .background(gradient).ignoresSafeArea()
+    }
+}
+}
+
 #Preview {
-    backgroundColor()
+    backgroundColorLight()
 }
