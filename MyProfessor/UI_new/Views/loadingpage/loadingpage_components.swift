@@ -9,8 +9,7 @@ import SwiftUI
 
 struct loadingpage_circles: View {
     var body: some View {
-        threeColorDots()
-            .frame(width: 80, height: 20)
+        threeColorDots(width: 80, height: 20)
             .padding(.leading, 7)
     }
 }

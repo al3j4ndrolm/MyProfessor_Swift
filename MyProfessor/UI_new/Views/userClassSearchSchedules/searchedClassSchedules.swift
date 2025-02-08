@@ -8,15 +8,24 @@
 import SwiftUI
 
 struct searchedClassSchedules: View {
+    
+    //use the above information we receive from homepage to search using vm
+
+    
+    
     var body: some View {
         ZStack {
             backgroundColorLight()
             
             VStack {
-                
+                HStack{
+                    userClassSearchSchedulesHeader()
+                    Spacer()
+                }
+                Spacer()
             }
             
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 

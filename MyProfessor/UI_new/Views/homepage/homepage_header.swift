@@ -23,7 +23,7 @@ struct homepage_header: View {
     
     private var threeColorDotsAndMenuDropdown: some View {
         HStack {
-            logoDots
+            threeColorDots(width: 80, height: 20)
                 .padding(.top, 55)
             Spacer()
             menuDropdown
@@ -37,11 +37,6 @@ struct homepage_header: View {
         Image(systemName: "line.3.horizontal")
             .font(.system(size: 48, weight: .bold, design: .default))
             .foregroundStyle(.white)
-    }
-    
-    private var logoDots: some View {
-            threeColorDots()
-                .frame(width: 80,height: 20)
     }
     
     private var welcomeGuestUsername: some View {

@@ -12,8 +12,7 @@ struct myProfessorLogo: View {
     var body: some View {
         ZStack {
             appTitle
-            threeColorDots()
-                .frame(width:68,height:18)
+            threeColorDots(width: 70, height: 20)
                 .offset(x: 50,y: -10)
         }
     }
@@ -37,8 +36,7 @@ struct myProfessorLogo_loadingScreen: View {
     var body: some View {
         ZStack {
             appTitle
-            threeColorDots()
-                .frame(width: 50, height: 50)
+            threeColorDots(width: 50, height: 50)
                 .offset(x: 25 , y: -10)
         }
     }
