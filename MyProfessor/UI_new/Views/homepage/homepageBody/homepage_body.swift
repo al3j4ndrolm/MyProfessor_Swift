@@ -11,20 +11,93 @@ struct homepage_body: View {
     
     @State var searchInisiated: Bool = false
     @State var searchText: String = ""
+    @State var selectedQuarter: Bool = true
+    @State var showWarning: Bool = false
     
+    @State var getQuarters: [String] = ["Fall 2024", "Winter 2025"] // change when func works
+    //Currently selected quarter depends on the button just use getQuarters[!selectedQuarter]
+    // If First quarter selected ==> true -> 1 !true -> 0 -> firstquarter = getQuarters[0]
+    
+    @State var searchFormatted: [String] = ["",""]
     
     var body: some View {
         VStack{
             searchByClassText
             searchNavigationBody
-            homepage_quarterButtons()
+            quarterButtons
             Spacer()
         }
         .padding(.top , 20)
         .navigationDestination(isPresented: $searchInisiated) {
-            searchedClassSchedules(term: ["Fall", "2025"], classInput: searchText.components(separatedBy: " "))
+            searchedClassSchedules(
+                term: getQuarters[selectedQuarter ? 0 : 1].components(separatedBy: " "),
+                classInput: searchFormatted)
         }
     }
+    
+    private func textFormatter() -> [String] {
+        if searchText.count < 5 {
+            return [] // MATH1 is a minimum  number of characters, if less invalid
+        }
+        
+        if searchText.contains(" ") && searchText.count >= 6 {
+            return searchText.components(separatedBy: " ")
+            //MATH 1A // COMM 1
+        }
+        if let firstNonDigit = searchText.firstIndex(where: { $0.isNumber }) {
+            let department = String(searchText[..<firstNonDigit])
+            let courseCode = String(searchText[firstNonDigit...])
+            return [department, courseCode]
+            //MATH1C //COMM1
+        }
+        //All other cases where the input is messy
+        return []
+    }
+    
+    
+    var defaultPaddingValue: CGFloat = 20
+    
+    
+    private var quarterButtons: some View {
+        VStack {
+            HStack {
+                firstQuarterButton
+                secondQuarterButton
+            }
+            if showWarning {
+                Text("Please enter a course in the required format")
+                    .foregroundColor(.red)
+                    .font(.footnote)
+                    .frame(maxHeight: 20)
+            }
+        }
+        .padding(.leading, 30)
+        .padding(.trailing, 100)
+        .padding(.top, defaultPaddingValue)
+    }
+        
+    
+    private var firstQuarterButton: some View {
+        Button(action:
+                {
+            selectedQuarter = true
+            
+        }) {
+            homepageQuarterButtonBuilder(selected: $selectedQuarter, quarterText: getQuarters[0])
+        }
+        
+    }
+    
+    private var secondQuarterButton: some View {
+        Button(action:
+                {
+            selectedQuarter = false
+            
+        }) {
+            homepageQuarterButtonBuilder(selected: not($selectedQuarter), quarterText: getQuarters[1])
+        }
+    }
+    
     
     private var searchNavigationBody: some View {
         HStack {
@@ -37,7 +110,13 @@ struct homepage_body: View {
     
     private var magnifyingGlassButton: some View {
         Button(action: {
-            searchClassByText()
+            searchFormatted = textFormatter()
+            if searchFormatted == [] {
+               showWarning = true
+            }
+            else {
+                searchClassByText()
+            }
         }) {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 32, weight: .semibold, design: .default))
@@ -46,14 +125,26 @@ struct homepage_body: View {
     }
     
     private func searchClassByText() {
-        searchInisiated = true //Send signal to searchedClassSchedules, they will process the loading
+        searchInisiated = true
     }
     
     
     private var searchBarHomepage: some View {
         ZStack(alignment: .leading) {
             TextField("", text: $searchText)
-                .foregroundColor(.black) // Input text color
+                .onChange(of: searchText) {
+                    showWarning = false
+                }
+                .onSubmit {
+                    searchFormatted = textFormatter()
+                    if searchFormatted == [] {
+                       showWarning = true
+                    }
+                    else {
+                        searchClassByText()
+                    }
+                }
+                .foregroundColor(.black)
                 .padding(.leading, 20)
                 .padding(.vertical, 12)
                 .background(RoundedRectangle(cornerRadius: 32).fill(Color(
@@ -91,4 +182,11 @@ struct homepage_body: View {
         backgroundColor()
         homepage_body()
     }
+}
+
+func not(_ value: Binding<Bool>) -> Binding<Bool> {
+    Binding<Bool>(
+        get: { !value.wrappedValue },
+        set: { value.wrappedValue = !$0 }
+    )
 }
