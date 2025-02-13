@@ -34,7 +34,7 @@ struct homepage_quarterButtons: View {
             //In here We will fill the array with the quarter texts and load the buttons and initial chosen quarter like we have above this todo
         }
     }
-    
+     
     private var buttonFirstQuarter: some View {
         Button(action: {
             if selectedQuarter == false {
