@@ -22,7 +22,7 @@ struct homepage_body: View {
         }
         .padding(.top , 20)
         .navigationDestination(isPresented: $searchInisiated) {
-            searchedClassSchedules()
+            searchedClassSchedules(term: ["Fall", "2025"], classInput: searchText.components(separatedBy: " "))
         }
     }
     

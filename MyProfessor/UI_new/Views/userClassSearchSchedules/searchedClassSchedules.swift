@@ -10,8 +10,8 @@ import SwiftUI
 struct searchedClassSchedules: View {
     
     //use the above information we receive from homepage to search using vm
-
-    
+    let term: [String]
+    let classInput: [String]
     
     var body: some View {
         ZStack {
@@ -19,7 +19,7 @@ struct searchedClassSchedules: View {
             
             VStack {
                 HStack{
-                    userClassSearchSchedulesHeader()
+                    userClassSearchSchedulesHeader(term: term, classInputs: classInput)
                     Spacer()
                 }
                 Spacer()
@@ -30,5 +30,5 @@ struct searchedClassSchedules: View {
 }
 
 #Preview {
-    searchedClassSchedules()
+    searchedClassSchedules(term: ["Fall", "2025"], classInput: ["Math","1A"])
 }

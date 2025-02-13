@@ -9,11 +9,8 @@ import SwiftUI
 
 struct userClassSearchSchedulesHeader: View {
     
-    @State var department: String = "MATH"
-    @State var courseCode: String = "1D"
-    
-    @State var selectedQuarter: String = "Winter"
-    @State var currentYear: String = "2025"
+    let term: [String]   // List of term(e.g., ["Fall", "2024"])
+    let classInputs: [String] // List of class input (e.g., ["Math", "1A"])
     
     @Environment(\.dismiss) var dismiss
     
@@ -59,24 +56,24 @@ struct userClassSearchSchedulesHeader: View {
     }
     
     private var courseDepartmentText: some View {
-        Text(department ?? "ERROR Department not found")
+        Text(classInputs[0] ?? "ERROR Department not found")
             .font(.system(size: 32, weight: .semibold, design: .default))
             .foregroundStyle(.white)
     }
     
     private var courseCodeText: some View {
-        Text(courseCode ?? ", Error Course not Found")
+        Text(classInputs[1] ?? ", Error Course not Found")
             .font(.system(size: 32, weight: .semibold, design: .default))
             .foregroundStyle(.white)
     }
     
     private var quarterAndYearText: some View {
-        Text("\(selectedQuarter ?? "") \(currentYear ?? "")")
+        Text("\(term[0] ?? "") \(term[1] ?? "")")
             .font(.system(size: 15, weight: .semibold, design: .default))
             .foregroundStyle(.white)
     }
 }
 
 #Preview {
-    userClassSearchSchedulesHeader()
+    userClassSearchSchedulesHeader(term: ["Fall", "2025"], classInputs: ["Math","1A"])
 }
