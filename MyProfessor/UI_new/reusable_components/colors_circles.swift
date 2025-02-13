@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct threeColorDots: View {
+    @State var width: CGFloat
+    @State var height: CGFloat
     
     var body: some View {
         HStack {
@@ -15,6 +17,7 @@ struct threeColorDots: View {
             newYellowCircle()
             newRedCircle()
         }
+        .frame(width: width, height: height)
     }
 }
 
@@ -40,5 +43,5 @@ struct newGreenCircle: View {
 }
 
 #Preview {
-    threeColorDots()
+    threeColorDots(width: 30, height: 30)
 }

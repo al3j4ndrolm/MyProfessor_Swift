@@ -22,8 +22,8 @@ struct headerlandingPage: View {
     
     private var welcomeTextLandingPage: some View {
         Text("Welcome to")
-            .font(Font.custom("Lato-Bold", size: 32))
-            .foregroundStyle(Color.white)
+            .font(.system(size: 32, weight: .bold ,design: .default))
+            .foregroundStyle(.white)
     }
     
     

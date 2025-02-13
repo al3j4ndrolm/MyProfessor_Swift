@@ -31,7 +31,7 @@ struct registerNavigation: View {
     private var rectangleRegisterButton: some View {
         Rectangle()
           .foregroundColor(.clear)
-          .frame(width: .infinity, height: 56)
+          .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
           .background(greenButtonColor)
           .cornerRadius(32)
           .shadow(color: .secondary.opacity(0.6), radius: 0.5, x: 0.3, y: 5)

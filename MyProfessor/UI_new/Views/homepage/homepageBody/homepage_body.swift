@@ -9,6 +9,7 @@ import SwiftUI
 
 struct homepage_body: View {
     
+    @State var searchInisiated: Bool = false
     @State var searchText: String = ""
     
     
@@ -20,25 +21,32 @@ struct homepage_body: View {
             Spacer()
         }
         .padding(.top , 20)
+        .navigationDestination(isPresented: $searchInisiated) {
+            searchedClassSchedules()
+        }
     }
     
     private var searchNavigationBody: some View {
         HStack {
             searchBarHomepage
             magnifyingGlassButton
-                .padding(.leading, 16)
-                .padding(.trailing, 38)
         }
+        .padding(.leading, 16)
+        .padding(.trailing, 38)
     }
     
     private var magnifyingGlassButton: some View {
         Button(action: {
-            print("take to other view")
+            searchClassByText()
         }) {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 32, weight: .semibold, design: .default))
                 .foregroundStyle(.white)
         }
+    }
+    
+    private func searchClassByText() {
+        searchInisiated = true //Send signal to searchedClassSchedules, they will process the loading
     }
     
     

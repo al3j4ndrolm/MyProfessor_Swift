@@ -11,6 +11,7 @@ struct homepage: View {
     
     @State var username: String
     
+    
     var body: some View {
         ZStack {
             backgroundColor()
@@ -18,17 +19,12 @@ struct homepage: View {
                 homepage_header(username: username)
                 homepage_body()
                 Spacer()
-                
-                //Just standard button can change later
                 registerNavigation()
                     .padding(.horizontal, 15)
                     .padding(.bottom, 45)
-                
-                //To make it close as possible with figma button do this one
-                //registerNavigation()
-                    //.offset(y: 30)
             }
-        }.navigationBarBackButtonHidden()
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -10,7 +10,6 @@
 func getCurrentTerm() async throws -> String {
     
     do {
-        
         let soup = try await getSoupFromWebsite(url: "https://www.deanza.edu/schedule/")
         // current_term is the button that appears as active on the website.
         let current_term = try soup.select(".btn-term.control.active")
