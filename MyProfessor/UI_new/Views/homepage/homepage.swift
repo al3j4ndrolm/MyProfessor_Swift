@@ -19,6 +19,7 @@ struct homepage: View {
                 homepage_header(username: username)
                 homepage_body()
                 Spacer()
+                loginButton(isd: "20555154", pin: "020202")
                 registerNavigation()
                     .padding(.horizontal, 15)
                     .padding(.bottom, 45)
