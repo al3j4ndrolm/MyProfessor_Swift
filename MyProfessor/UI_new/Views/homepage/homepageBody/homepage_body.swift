@@ -14,7 +14,7 @@ struct homepage_body: View {
     @State var selectedQuarter: Bool = true
     @State var showWarning: Bool = false
     
-    @State var getQuarters: [String] = ["Fall 2024", "Winter 2025"] // change when func works
+    @State var quarters: [(termText: String, termCode: String)] = [(termText: "Fetching...", termCode: "NA"), (termText: "Fetching...", termCode: "NA")] // change when func works
     //Currently selected quarter depends on the button just use getQuarters[!selectedQuarter]
     // If First quarter selected ==> true -> 1 !true -> 0 -> firstquarter = getQuarters[0]
     
