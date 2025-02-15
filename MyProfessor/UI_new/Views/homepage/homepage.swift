@@ -11,15 +11,17 @@ struct homepage: View {
     
     @State var username: String
     
-    
     var body: some View {
+        
         ZStack {
             backgroundColor()
             VStack {
                 homepage_header(username: username)
                 homepage_body()
                 Spacer()
+                
                 loginButton(isd: "20555154", pin: "020202")
+                testButton()
                 registerNavigation()
                     .padding(.horizontal, 15)
                     .padding(.bottom, 45)

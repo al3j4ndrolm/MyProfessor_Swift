@@ -11,7 +11,7 @@ struct homepage_body: View {
     
     @State var searchInisiated: Bool = false
     @State var searchText: String = ""
-    
+    @State var terms = []
     
     var body: some View {
         VStack{
