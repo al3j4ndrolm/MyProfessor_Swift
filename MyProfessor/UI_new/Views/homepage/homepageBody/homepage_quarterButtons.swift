@@ -12,9 +12,10 @@ let unselectedColour = Color(red: 0.85, green: 0.85, blue: 0.85)
 
 struct homepage_quarterButtons: View {
     
-    //Will need to decide how to get current quarters right now this is temporary
     
-    @State var quarterText: [String] = ["Fall 2024", "Winter 2025"]
+    // Now quarters will be storing the array of tuples with both termText and termCode.
+    
+    @State var quarters: [(termText: String, termCode: String)] = [(termText: "Fetching...", termCode: "NA"), (termText: "Fetching...", termCode: "NA")]
     @State private var selectedQuarter: Bool = true
     @State private var selectedQuarterText = ""
     
@@ -28,10 +29,9 @@ struct homepage_quarterButtons: View {
         }
         .padding(.top, 18)
         .onAppear {
-            selectedQuarterText = quarterText[selectedQuarter ? 0 : 1]
-            //TODO == Get current quarters displayed in portal, and send that to the array quarterText, Initially the array quarterText should just be empty both [0] and [1]
-            
-            //In here We will fill the array with the quarter texts and load the buttons and initial chosen quarter like we have above this todo
+            Task {
+                quarters = try await getCurrentTerms()
+            }
         }
     }
      
@@ -40,7 +40,7 @@ struct homepage_quarterButtons: View {
             if selectedQuarter == false {
                 selectedQuarter.toggle()
             }
-            selectedQuarterText = quarterText[0]
+            
         }) {
             buttonFirstQuarterBody
         }
@@ -51,7 +51,6 @@ struct homepage_quarterButtons: View {
             if selectedQuarter == true {
                 selectedQuarter.toggle()
             }
-            selectedQuarterText = quarterText[1]
         }) {
             buttonSecondQuarterBody
         }
@@ -59,7 +58,7 @@ struct homepage_quarterButtons: View {
     
     
     private var buttonFirstQuarterBody: some View {
-        Text(quarterText[0])
+        Text(quarters[0].0)
             .font(.system(size: 14))
             .fontWeight(.bold)
             .foregroundStyle(selectedQuarter ? selectedTextColour : .black)
@@ -69,7 +68,7 @@ struct homepage_quarterButtons: View {
     }
     
     private var buttonSecondQuarterBody: some View {
-        Text(quarterText[1])
+        Text(quarters[1].0)
             .font(.system(size: 14))
             .fontWeight(.bold)
             .foregroundStyle(!selectedQuarter ? selectedTextColour : .black)
