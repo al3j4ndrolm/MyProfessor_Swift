@@ -19,26 +19,30 @@ struct userClassSearchSchedulesHeader: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
-                HStack {
-                    backButton
-                    threeColorDots(width: 80, height: 20)
-                }
-                    .padding(.leading, 22)
-                    .padding(.top, 56)
+                topHeader
                 courseDepartmentAndCourseCode
-                    .padding(.leading, 22)
-                    .padding(.top, 10)
                 quarterAndYearText
-                    .padding(.leading, 22)
-                Rectangle()
-                    .foregroundStyle(Color.white)
-                    .frame(maxWidth: .infinity, maxHeight: 1)
-                    .padding(.leading, 22)
-                    .padding(.trailing, 150)
-                    .padding(.top, 23)
             }
             
         }.ignoresSafeArea(.all)
+    }
+    
+    //Organizing
+    private var topHeader: some View {
+        HStack {
+            backButton
+            threeColorDots(width: 80, height: 20)
+        }
+        .padding(.leading, 22)
+        .padding(.top, 56)
+    }
+    private var divider: some View {
+        Rectangle()
+            .foregroundStyle(Color.white)
+            .frame(maxWidth: .infinity, maxHeight: 1)
+            .padding(.leading, 22)
+            .padding(.trailing, 150)
+            .padding(.top, 23)
     }
     private var backButton: some View {
         Button(action: {
@@ -47,35 +51,40 @@ struct userClassSearchSchedulesHeader: View {
             navigation_backbutton()
         }
     }
-    
+    //Components
     private var courseDepartmentAndCourseCode: some View {
-        if let classInputs = classInputs,
-           classInputs.count == 2,
-           let department = classInputs.first,
-           let code = classInputs.last {
-            Text("\(department) \(code)".capitalized)
-                .font(.system(size: 32, weight: .semibold, design: .default))
-                .foregroundStyle(.white)
-        }
-        else {
-            Text("Error: Bad search input")
-                .font(.system(size: 32, weight: .semibold, design: .default))
-                .foregroundStyle(.red)
-        }
+        VStack {
+            if let classInputs = classInputs,
+               classInputs.count == 2,
+               let department = classInputs.first,
+               let code = classInputs.last {
+                Text("\(department) \(code)".capitalized)
+                    .font(.system(size: 32, weight: .semibold, design: .default))
+                    .foregroundStyle(.white)
+            }
+            else {
+                Text("Error: Bad search input")
+                    .font(.system(size: 32, weight: .semibold, design: .default))
+                    .foregroundStyle(.red)
+            }
+        }        .padding(.leading, 22)
+            .padding(.top, 10)
     }
     
     private var quarterAndYearText: some View {
-        if let term = term,
-           term.count == 2 {
-            Text("\(term[0]) \(term[1])")
-                .font(.system(size: 15, weight: .semibold, design: .default))
-                .foregroundStyle(.white)
-        }
-        else {
-            Text("Error with fetching terms") // if this ever happends then the function broke
-                .font(.system(size: 15, weight: .semibold, design: .default))
-                .foregroundStyle(.red)
-        }
+        VStack {
+            if let term = term,
+               term.count == 2 {
+                Text("\(term[0]) \(term[1])")
+                    .font(.system(size: 15, weight: .semibold, design: .default))
+                    .foregroundStyle(.white)
+            }
+            else {
+                Text("Error with fetching terms") // if this ever happends then the function broke
+                    .font(.system(size: 15, weight: .semibold, design: .default))
+                    .foregroundStyle(.red)
+            }
+        }.padding(.leading, 22)
     }
     
     

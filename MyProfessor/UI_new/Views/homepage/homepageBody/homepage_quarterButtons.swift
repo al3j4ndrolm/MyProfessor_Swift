@@ -12,7 +12,7 @@ let unselectedColour = Color(red: 0.85, green: 0.85, blue: 0.85)
 
 struct homepageQuarterButtonBuilder: View {
     @Binding var selected: Bool
-    @State var quarterText: String
+    @Binding var quarterText: String
     
     var body: some View {
         VStack {
@@ -31,5 +31,5 @@ struct homepageQuarterButtonBuilder: View {
 }
 
 #Preview {
-    homepageQuarterButtonBuilder(selected: .constant(true), quarterText: "Fall 2025")
+    homepageQuarterButtonBuilder(selected: .constant(true), quarterText: .constant("Fall 2024"))
 }

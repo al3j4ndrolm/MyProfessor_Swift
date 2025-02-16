@@ -13,11 +13,8 @@ struct homepage_body: View {
     @State var searchText: String = ""
     @State var selectedQuarter: Bool = true
     @State var showWarning: Bool = false
-    
-    @State var quarters: [(termText: String, termCode: String)] = [(termText: "Fetching...", termCode: "NA"), (termText: "Fetching...", termCode: "NA")] // change when func works
-    //Currently selected quarter depends on the button just use getQuarters[!selectedQuarter]
-    // If First quarter selected ==> true -> 1 !true -> 0 -> firstquarter = getQuarters[0]
-    
+    @State var quarters: [(termText: String, termCode: String)] = [(termText: "Fetching...", termCode: "NA"), (termText: "Fetching...", termCode: "NA")]
+    //bro wrote an essay
     @State var searchFormatted: [String] = ["",""]
     
     var body: some View {
@@ -27,11 +24,19 @@ struct homepage_body: View {
             quarterButtons
             Spacer()
         }
+        .onAppear {
+            Task {
+                do {
+                    quarters = try await getCurrentTerms()
+                }
+            }
+        }
         .padding(.top , 20)
         .navigationDestination(isPresented: $searchInisiated) {
             searchedClassSchedules(
-                term: getQuarters[selectedQuarter ? 0 : 1].components(separatedBy: " "),
-                classInput: searchFormatted)
+                term: quarters[selectedQuarter ? 0 : 1].0.components(separatedBy: " "),
+                classInput: searchFormatted
+            )
         }
     }
     
@@ -83,7 +88,7 @@ struct homepage_body: View {
             selectedQuarter = true
             
         }) {
-            homepageQuarterButtonBuilder(selected: $selectedQuarter, quarterText: getQuarters[0])
+            homepageQuarterButtonBuilder(selected: $selectedQuarter, quarterText: $quarters[0].0)
         }
         
     }
@@ -94,7 +99,7 @@ struct homepage_body: View {
             selectedQuarter = false
             
         }) {
-            homepageQuarterButtonBuilder(selected: not($selectedQuarter), quarterText: getQuarters[1])
+            homepageQuarterButtonBuilder(selected: not($selectedQuarter), quarterText: $quarters[1].0)
         }
     }
     
