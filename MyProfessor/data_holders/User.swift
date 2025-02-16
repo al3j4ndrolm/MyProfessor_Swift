@@ -9,9 +9,16 @@ import Foundation
 
 //Planning to use this type to pass in logic for other UIs like current registrations
 
-struct User {
-    let id: String
-    var password: String
-    //type currentlySelectedCourses
+class User: ObservableObject {
+    let userID: String
+    var userPassword: String
     
+   //add additional details here
+    
+    
+    
+    init(userID: String, userPassword: String) {
+        self.userID = userID
+        self.userPassword = userPassword
+    }
 }

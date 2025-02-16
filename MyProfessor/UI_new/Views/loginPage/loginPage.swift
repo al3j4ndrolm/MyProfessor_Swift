@@ -13,50 +13,75 @@ struct loginPage: View {
         @State var studentID: String = ""
         @State var password: String = ""
         
+        //@Stateobject var vm = vm()
+        @State var guestViewListener: Bool = false
+        @State var loginViewListener: Bool = false
+        
         
         ZStack {
             backgroundColor()
             VStack(alignment: .leading) {
-                header
+                LoginPageheader
                 loginPageTextfields(studentId: studentID, studentPassword: password)
                 navigation
                 Spacer()
+                userNavigateForSupport
             }
-            .padding(.top, 33)
-        }.ignoresSafeArea(.all)
+        }
             .navigationBarBackButtonHidden(true)
     }
     
-    private var header: some View {
-        VStack(alignment: .leading) {
-            myProfessorLogo()
-                .padding(.horizontal, 111)
-            Text("Log in")
-                .font(.system(size: 32, weight: .bold, design: .default))
-                .foregroundStyle(.white)
-                .padding(.leading, 20)
-                .padding(.bottom, 32)
-                .padding(.top, 32)
+    private var userNavigateForSupport: some View {
+        VStack(alignment: .center) {
+            Text("Are you having problems logging in?")
+                .font(.system(size: 15, weight: .bold, design: .default))
+                .foregroundStyle(Color(red: 0.59, green: 0.59, blue: 0.59))
+                .padding(.horizontal, 63)
+            customerServiceButton
+        }
+    }
+    
+    private var customerServiceButton: some View {
+        Button(action: {
+            print("take user to customer service")
+        }) {
+            customerServiceButtonUI
         }
     }
     
     private var navigation: some View {
+        VStack(alignment: .center, spacing: 0) {
             LoginButton
-                .padding(.top, 20)
-                .padding(.horizontal, 163)
+            LoginPageSpacerBetweenGuestAndLoginButton
+            GuestButton
+        }
+    }
+    
+    private var GuestButton: some View {
+        Button(action: {
+            continueAsGuest()
+        }) {
+            GuestButtonUI
+        }
     }
     
     private var LoginButton: some View {
-       Text("Login")
-            .font(.system(size: 15, weight: .semibold, design: .default))
-            .foregroundStyle(Color(red: 0.3, green: 0.49, blue: 0.64))
-            .padding(.vertical, 5)
-            .padding(.horizontal, 15)
-            .background(RoundedRectangle(cornerRadius: 25).fill(Color(red: 0.82, green: 0.92, blue: 1)))
+        Button(action: {
+            confirmLogin()
+        }) {
+            LoginButtonUI
+                .padding(.top, 20)
+                .padding(.horizontal, 163)
+        }
     }
     
-    private func confirmLogin() {
+    private func continueAsGuest() {
+       //navigate to guest view
         
+    }
+   
+    private func confirmLogin() {
+       //navigate to homepage with user's state
     }
     
 }
