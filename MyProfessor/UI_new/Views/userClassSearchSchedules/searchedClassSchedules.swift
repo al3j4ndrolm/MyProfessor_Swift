@@ -10,7 +10,7 @@ import SwiftUI
 struct searchedClassSchedules: View {
     
     //use the above information we receive from homepage to search using vm
-    let term: [String]
+    let term: [String] //[Fall , 2024] -> Unpack in parent
     let classInput: [String]
     
     var body: some View {

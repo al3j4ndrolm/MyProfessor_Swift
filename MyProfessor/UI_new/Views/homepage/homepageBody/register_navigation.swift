@@ -25,8 +25,6 @@ struct registerNavigation: View {
             .overlay(registerButtonPrompt)
     }
     
-    //The one on figma is kind of weird
-    
     
     private var rectangleRegisterButton: some View {
         Rectangle()
