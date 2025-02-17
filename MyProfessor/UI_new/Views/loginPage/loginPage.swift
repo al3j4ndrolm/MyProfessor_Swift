@@ -9,26 +9,37 @@ import SwiftUI
 
 struct loginPage: View {
     
+    @State private var loginManager = HeadlessLogInWebViewManager()
+    @State private var navigateAsGuest: Bool = false
+    @State private var navigateAsStudent: Bool = false
+    @State var studentID: String = ""
+    @State var password: String = ""
+    
     var body: some View {
-        @State var studentID: String = ""
-        @State var password: String = ""
         
         //@Stateobject var vm = vm()
         @State var guestViewListener: Bool = false
         @State var loginViewListener: Bool = false
         
         
+        
         ZStack {
             backgroundColor()
             VStack(alignment: .leading) {
                 LoginPageheader
-                loginPageTextfields(studentId: studentID, studentPassword: password)
+                loginPageTextfields(studentId: $studentID, studentPassword: $password)
                 navigation
                 Spacer()
                 userNavigateForSupport
             }
         }
             .navigationBarBackButtonHidden(true)
+            .navigationDestination(isPresented: $navigateAsGuest) {
+                homepage(username: "Guest")
+            }
+            .navigationDestination(isPresented: $navigateAsStudent) {
+                homepage(username: "Alejandro")
+            }
     }
     
     private var userNavigateForSupport: some View {
@@ -67,7 +78,7 @@ struct loginPage: View {
     
     private var LoginButton: some View {
         Button(action: {
-            confirmLogin()
+            loginButton(isd: studentID, pin: password)
         }) {
             LoginButtonUI
                 .padding(.top, 20)
@@ -76,14 +87,18 @@ struct loginPage: View {
     }
     
     private func continueAsGuest() {
-       //navigate to guest view
-        
+        navigateAsGuest = true
     }
    
-    private func confirmLogin() {
-       //navigate to homepage with user's state
+    private func loginButton(isd: String, pin: String) {
+        loginManager.checkLoginCredentials(username: isd, password: pin) { isValid in
+            if isValid {
+                navigateAsStudent = true
+            } else {
+                navigateAsStudent = false
+            }
+        }
     }
-    
 }
 
 #Preview {

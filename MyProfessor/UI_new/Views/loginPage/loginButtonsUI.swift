@@ -23,6 +23,7 @@ var GuestButtonUI: some View {
             .foregroundStyle(.white.opacity(0.8))
             .padding(.horizontal, 15)
             .underline()
+            
 }
 
 var LoginPageSpacerBetweenGuestAndLoginButton: some View {
