@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct loginPageTextfields: View {
-    @State var studentId: String
-    @State var studentPassword: String  //In figma we we have birthdate but ill do password for n
+    @Binding var studentId: String
+    @Binding var studentPassword: String  //In figma we we have birthdate but ill do password for n
 
     var body: some View {
         VStack {
@@ -46,6 +46,6 @@ struct loginPageTextfields: View {
 #Preview {
     ZStack {
         backgroundColor()
-        loginPageTextfields(studentId: "", studentPassword: "")
+//        loginPageTextfields(studentId: "", studentPassword: "")
     }
 }

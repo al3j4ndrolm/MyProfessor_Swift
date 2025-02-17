@@ -10,7 +10,7 @@ import SwiftUI
 struct landingPageLoginValidationButton: View {
     
     @State private var navigateAsGuest: Bool = false
-    @State private var navigateAsStuDENT: Bool = false
+    @State private var navigateAsStudent: Bool = false
     
     var body: some View {
         VStack {
@@ -30,7 +30,7 @@ struct landingPageLoginValidationButton: View {
         .navigationDestination(isPresented: $navigateAsGuest) {
             homepage(username: "Guest")
         }
-        .navigationDestination(isPresented: $navigateAsStuDENT) {
+        .navigationDestination(isPresented: $navigateAsStudent) {
             loginPage()
         }
     }
@@ -53,7 +53,7 @@ struct landingPageLoginValidationButton: View {
         navigateAsGuest = true
     }
     private func loginHereButton() {
-        navigateAsStuDENT = true
+        navigateAsStudent = true
     }
     
     
