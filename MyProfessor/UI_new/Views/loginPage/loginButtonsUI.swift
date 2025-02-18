@@ -8,8 +8,8 @@
 import SwiftUI
 
 
-var LoginButtonUI: some View {
-   Text("Login")
+var BlueButtonUI: some View {
+   Text("Continue")
         .font(.system(size: 15, weight: .semibold, design: .default))
         .foregroundStyle(Color(red: 0.3, green: 0.49, blue: 0.64))
         .padding(.vertical, 5)
@@ -42,7 +42,3 @@ var customerServiceButtonUI: some View {
 
 }
 
-#Preview {
-    LoginButtonUI
-    GuestButtonUI
-}

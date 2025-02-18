@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct loginPageTextfields: View {
+struct  loginPageSecureFields: View {
     @State var context: String
     @State var placeholder: String
     @Binding var data: String
@@ -8,24 +8,24 @@ struct loginPageTextfields: View {
 
     var body: some View {
         VStack {
-            textfieldBody(context: context, data: $data, placeholder: placeholder)
+            secureFieldBody(context: context, data: $data, placeholder: placeholder)
         }
     }
     
-    private func textfieldBody(context: String, data: Binding<String>, placeholder: String) -> some View {
+    private func secureFieldBody(context: String, data: Binding<String>, placeholder: String) -> some View {
         VStack(alignment: .leading) {
             Text(context)
                 .font(.system(size: 20, weight: .bold, design: .default))
                 .foregroundStyle(.white)
                 .padding(.leading, 30)
-            textfield(data: data, placeholder: placeholder)
+            secureField(data: data, placeholder: placeholder)
         }
         .padding(.top, 20)
     }
     
-    private func textfield(data: Binding<String>, placeholder: String) -> some View {
+    private func secureField(data: Binding<String>, placeholder: String) -> some View {
         ZStack(alignment: .leading) {
-            TextField("", text: data)
+            SecureField("", text: data)
                 .foregroundStyle(.black) // if empty dull color change later
                 .padding(.leading, 20)
                 .padding(.vertical, 12)
