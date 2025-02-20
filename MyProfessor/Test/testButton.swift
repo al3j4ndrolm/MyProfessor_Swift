@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct testButton: View {
+    var professorFetchTest = ProfessorsFetcher()
     
     var body: some View {
         VStack {
             Button(action: {
                 Task {
                     do {
-                        try await getCurrentTerms()
+                        await professorFetchTest.getAllProfessors(className: "SPAN", classCode: "4", termCode: "S2025")
+                        print(professorFetchTest.Professors)
                     }
                 }
             }) {
-                Text("Get terms")
+                Text("Get professors")
             }
         }
     }
