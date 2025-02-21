@@ -12,7 +12,8 @@ import Foundation
 class User: ObservableObject {
     let userID: String
     var userPIN: String
-    var birthdate: Date
+    var birthdate: Date?
+    var password: String?
    //add additional details here
     
     
@@ -20,7 +21,6 @@ class User: ObservableObject {
     init(userID: String, userPassword: String) {
         self.userID = userID
         self.userPIN = userPassword
-        self.birthdate = Date()
     }
 }
 
