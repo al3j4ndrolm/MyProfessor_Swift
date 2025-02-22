@@ -40,7 +40,7 @@ class ProfessorsFetcher: ObservableObject {
                 for i in range.0...range.1 {
                     if !isClasOrLab(element: professors[i]) {
                         
-                        if try professors[i].text().contains("SPAN 1") {
+                        if try professors[i].text().contains(className) {
                             refinedProfessorData = refineProfessorData(professorRawData: professors[i])!
                             let name: String = try refinedProfessorData[7].text()
                             let crn: String = try refinedProfessorData[0].text()
@@ -110,7 +110,7 @@ class ProfessorsFetcher: ObservableObject {
         } catch {
             return (0,0)
         }
-        
+
     }
     
     func isClasOrLab(element: Element) -> Bool {
@@ -141,8 +141,8 @@ class ProfessorsFetcher: ObservableObject {
 struct Professor {
     var name: String
     var allSchedules: [String: [String]] // classCode: [schedules]
-    var numRatings: Int = 0
-    var difficulty: Double = 0.0
-    var overallRating: Double = 0.0
-    var wouldTakeAgain: Double = 0.0
+    var numRatings: String = ""
+    var difficulty: String = ""
+    var overallRating: String = ""
+    var wouldTakeAgain: String = ""
 }

@@ -15,7 +15,13 @@ struct testButton: View {
             Button(action: {
                 Task {
                     do {
-                        await professorFetchTest.getAllProfessors(className: "SPAN", classCode: "4", termCode: "S2025")
+                        await professorFetchTest.getAllProfessors(className: "MATH", classCode: "1A", termCode: "S2025")
+                        print(professorFetchTest.Professors)
+                        print("Now getting ratings -------------------- ")
+                        for key in professorFetchTest.Professors.keys {
+                            await getProfessorRating(professor: &professorFetchTest.Professors[key]!)
+                        }
+                        
                         print(professorFetchTest.Professors)
                     }
                 }
