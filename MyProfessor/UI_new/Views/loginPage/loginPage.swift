@@ -12,8 +12,9 @@ struct loginPage: View {
     @State private var loginManager = HeadlessLogInWebViewManager()
     @State private var navigateAsGuest: Bool = false
     @State private var navigateAsStudent: Bool = false
+    @State private var navigateToCreatePin: Bool = false
     @State var studentID: String = ""
-    @State var password: String = ""
+    @State var pin: String = ""
     
     var body: some View {
         
@@ -21,25 +22,44 @@ struct loginPage: View {
         @State var guestViewListener: Bool = false
         @State var loginViewListener: Bool = false
         
-        
-        
         ZStack {
             backgroundColor()
             VStack(alignment: .leading) {
                 LoginPageheader
-                loginPageTextfields(studentId: $studentID, studentPassword: $password)
+                loginPageTextfields(context: "Student ID", placeholder: "ex. 12345678", data: $studentID)
+                loginPageSecureFields(context: "Pin", placeholder: "my super secure pin :)", data: $pin).textContentType(.password)
+                makePinBtn
                 navigation
                 Spacer()
                 userNavigateForSupport
             }
         }
-            .navigationBarBackButtonHidden(true)
-            .navigationDestination(isPresented: $navigateAsGuest) {
-                homepage(username: "Guest")
-            }
-            .navigationDestination(isPresented: $navigateAsStudent) {
-                homepage(username: "Alejandro")
-            }
+        .navigationBarBackButtonHidden(true)
+        .navigationDestination(isPresented: $navigateAsGuest) {
+            homepage(username: "Guest")
+        }
+        .navigationDestination(isPresented: $navigateAsStudent) {
+            homepage(username: "Alejandro")
+        }
+        .navigationDestination(isPresented: $navigateToCreatePin) {
+            createPin()
+        }
+    }
+    
+    private var makePinBtn: some View {
+        Button(action: {
+            navigateToCreatePin = true
+        } ) {
+            makePinBtnUI
+        }        }
+    private var makePinBtnUI: some View {
+        HStack {
+            Spacer()
+            Text("You dont have a PIN? Click here")
+                .foregroundStyle(.white)
+                .font(.system(size: 15, weight: .bold))
+        }
+        .padding(.trailing, 40)
     }
     
     private var userNavigateForSupport: some View {
@@ -78,18 +98,19 @@ struct loginPage: View {
     
     private var LoginButton: some View {
         Button(action: {
-            loginButton(isd: studentID, pin: password)
+            loginButton(isd: studentID, pin: pin)
         }) {
-            LoginButtonUI
+            Spacer()
+            BlueButtonUI
                 .padding(.top, 20)
-                .padding(.horizontal, 163)
+            Spacer()
         }
     }
     
     private func continueAsGuest() {
         navigateAsGuest = true
     }
-   
+    
     private func loginButton(isd: String, pin: String) {
         loginManager.checkLoginCredentials(username: isd, password: pin) { isValid in
             if isValid {
