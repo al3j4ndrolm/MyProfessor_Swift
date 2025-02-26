@@ -45,6 +45,7 @@ struct scheduleRows: View {
         .background(RoundedRectangle(cornerRadius: 32).fill(Color.white))
     }
     
+    
     private var buttonDropdown: some View {
         Button(action: {
             withAnimation(.easeOut(duration: 0.25)) {

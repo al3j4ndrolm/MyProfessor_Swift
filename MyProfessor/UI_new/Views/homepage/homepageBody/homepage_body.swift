@@ -37,12 +37,6 @@ struct homepage_body: View {
         }
     }
     
-  
-    
-    
-    var defaultPaddingValue: CGFloat = 20
-    
-    
     private var quarterButtons: some View {
         VStack {
             HStack {
@@ -58,7 +52,7 @@ struct homepage_body: View {
         }
         .padding(.leading, 30)
         .padding(.trailing, 100)
-        .padding(.top, defaultPaddingValue)
+        .padding(.top)
     }
         
     
@@ -116,9 +110,6 @@ struct homepage_body: View {
     private var searchBarHomepage: some View {
         ZStack(alignment: .leading) {
             TextField("", text: $searchText)
-                .onChange(of: searchText) {
-                    showWarning = false
-                }
                 .onSubmit {
                     if searchText == "" {
                        showWarning = true

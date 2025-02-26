@@ -24,14 +24,14 @@ struct ProfessorRowView: View {
         VStack(alignment: .leading) {
             if isLoading {
                 elementHeader(
-                    professorName: professor.name,
+                    professorName: formatName(professor.name),
                     ratings: ratings.overallRating,
                     difficulty: ratings.difficulty,
                     wouldTakeAgain: ratings.wouldTakeAgain
                 )
             } else {
                 elementHeader(
-                    professorName: professor.name,
+                    professorName: formatName(professor.name),
                     ratings: ratings.overallRating,
                     difficulty: ratings.difficulty,
                     wouldTakeAgain: ratings.wouldTakeAgain

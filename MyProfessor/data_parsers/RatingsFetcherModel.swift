@@ -53,7 +53,7 @@ private func fetchRatingData(from html: Document) throws -> ProfessorRating? {
 }
 
 
-private func formatProfessorName(name: String) -> [String] {
+func formatProfessorName(name: String) -> [String] {
     let formattedName: [String]
     
     if name.contains(",") {

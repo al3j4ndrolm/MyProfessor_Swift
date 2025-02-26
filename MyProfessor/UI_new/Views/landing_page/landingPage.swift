@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct landingPage: View {
-    @State var trueer: Bool = false
     var body: some View {
         ZStack {
             backgroundColor()
@@ -26,7 +25,7 @@ struct landingPage: View {
                 }
                 Spacer()
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 #Preview {

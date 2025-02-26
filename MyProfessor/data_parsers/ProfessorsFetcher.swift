@@ -59,7 +59,7 @@ class ProfessorsFetcher: ObservableObject {
                     } else {
                         refinedProfessorExtraData = refineProfessorData(professorRawData: professors[i])!
                         let extraSchedule = ["\(try refinedProfessorExtraData[0].text())/\(try refinedProfessorExtraData[1].text())/\(try refinedProfessorExtraData[2].text())/\(try refinedProfessorExtraData[4].text())"]
-                        if var professor = self.Professors[lastClassCode.0] {
+                        if let professor = self.Professors[lastClassCode.0] {
                             professor.allSchedules[lastClassCode.1, default: []].append(contentsOf: extraSchedule)
                             self.Professors[lastClassCode.0] = professor
                         }
