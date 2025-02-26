@@ -8,53 +8,53 @@
 import SwiftUI
 
 struct SearchedProfessors: View {
+    @State var quarters: (termText: String, termCode: String)
     @State var departmentAndCourseNumber: String? = "MATH 1D"
-    @State var quarterYear: String? = "Winter 2025"
     @StateObject var professorsFetcher = ProfessorsFetcher()
     @State var loadProfessors: Bool = true
-
+    
     var body: some View {
         ZStack {
-            backgroundColorLight()
-            VStack(alignment: .leading, spacing: 0) {
-                searchedProfessorsHeader(departmentAndCourseNumber: departmentAndCourseNumber,
-                                           quarterYear: quarterYear)
+            if !loadProfessors {
+                backgroundColorLight()
+                VStack(alignment: .leading, spacing: 0) {
+                    searchedProfessorsHeader(departmentAndCourseNumber: departmentAndCourseNumber,
+                                             quarterYear: quarters.termText)
                     .padding(.leading, 20)
-                searchedProfessorsBody
-                Spacer()
+                    
+                    searchedProfessorsBody
+                        .padding(.top, 10)
+                    Spacer()
+                }
+            } else {
+                loadingPage()
             }
         }
         .onAppear {
             Task {
-                await professorsFetcher.getAllProfessors(className: "MATH",
-                                                         classCode: "1D",
-                                                         termCode: "S2025")
-                loadProfessors = false
-                print(professorsFetcher.Professors.values)
-                    //Get professors, send Instructions to Child view
+
+                await professorsFetcher.getAllProfessors(className: departmentAndCourseNumber?.components(separatedBy: " ").first ?? "",
+                                                         classCode: departmentAndCourseNumber?.components(separatedBy: " ").last ?? "",
+                                                         termCode: quarters.termCode)
+                withAnimation(.easeIn(duration: 0.3)) {
+                    loadProfessors = false
+                }//Get professors, send Instructions to Child view
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
     
     private var searchedProfessorsBody: some View {
-        if loadProfessors {
-            AnyView(
-            loadingPage()) //This is just a rough idea, still very buggy!
-        } else {
-            AnyView(
-            ScrollView {
-                VStack(spacing: 10) {
-           
-                    ForEach(Array(professorsFetcher.Professors.values), id: \.name) { professor in
-                        ProfessorRowView(professor: professor)
-                        //Child View takes professor name, and searches with it
-                        //The object needed will be processed there
-                    }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10) {
+                
+                ForEach(Array(professorsFetcher.Professors.values), id: \.name) { professor in
+                    ProfessorRowView(professor: professor)
+                    //Child View takes professor name, and searches with it
+                    //The object needed will be processed there
+                    courseInformation(allSchedules: professor.allSchedules)
                 }
-                .padding(.horizontal)
             }
-            )
+            .padding(.horizontal)
         }
     }
 }
-

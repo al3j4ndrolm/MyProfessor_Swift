@@ -20,24 +20,15 @@ struct landingPage: View {
                     HStack {
                         Spacer()
                         landingPageLoginValidationButton()
-                        Button(action: {
-                            trueer = true
-                        })
-                        {
-                            Text("test")
-                        }
                         Spacer()
                     }
                     Spacer()
                 }
-                 Spacer()
+                Spacer()
             }
-        }.navigationDestination(isPresented: $trueer) {
-            SearchedProfessors()
         }
     }
 }
-
 #Preview {
     landingPage()
 }

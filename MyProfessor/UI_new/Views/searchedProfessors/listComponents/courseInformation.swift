@@ -9,38 +9,45 @@ import SwiftUI
 
 struct courseInformation: View {
     
-    @State var allSchedules: [String:[String]] = [
-        "39320": [
-            "M·W····/04:00 PM-06:15 PM/ONLINE",
-            "M·W····/04:00 PM-06:17 PM/ONLINE",
-            "M·W····/04:00 PM-06:16 PM/ONLINE",
-        ],
-        "39133": [
-            "M·W····/04:00 PM-06:15 PM/ONLINE"
-        ]
-    ]
+    @State var allSchedules: [String:[String]]
     //Change allschedules on appear with a call to get professor schedule
-    @State var classStatus: String? = "Open" // logic issue here but whatever
+    @State private var classStatus: String? = "Open" // logic issue here but whatever
     //We need to find a way to connect the class status with their respective Crns
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(alignment: .leading,spacing: 10) {
             ForEach(Array(allSchedules.keys), id: \.self) { crn in
                 if let scheduleArray = allSchedules[crn] {
                     scheduleRows(crn: crn,
-                                      scheduleArray: scheduleArray,
-                                      classStatus: classStatus)
+                                 scheduleArray: scheduleArray,
+                                 classStatus: findClassStatus(scheduleElement: scheduleArray[0]))
                 }
             }
+        }.onAppear {
+            print(allSchedules)
         }
         .navigationBarBackButtonHidden(true)
     }
-}
-
-
-#Preview {
-    ZStack {
-        backgroundColorLight()
-        courseInformation()
+    
+    private func findClassStatus(scheduleElement: String) -> String {
+        let start = scheduleElement.startIndex
+        let end = scheduleElement.index(start, offsetBy: 8)
+        let results = String(scheduleElement[start..<end])
+        
+        switch results {
+            case let value where value.contains("Open"):
+                return "Open"
+            case let value where value.contains("Full"):
+                return "Full"
+            case let value where value.contains("WL"):
+                return "WL"
+            default:
+                return "N/A"
+        }
     }
+
+    
+    
 }
+
+

@@ -19,43 +19,43 @@ struct scheduleRows: View {
             HStack(alignment: .top) {
                 status
                 VStack(alignment: .leading, spacing: 0) {
-                    if isExpanded {
+                    if !isExpanded {
+                        HStack{
+                            scheduleDetails(stringElement: scheduleArray[0])
+                            whereAbouts(stringElement: scheduleArray[0])
+                        }
+                    } else {
                         ForEach(scheduleArray, id: \.self) { element in
                             HStack {
                                 scheduleDetails(stringElement: element)
                                 whereAbouts(stringElement: element)
-                                    .offset(y: -1)
-                            }
-                        }
-                    } else {
-                        ForEach(scheduleArray.prefix(1), id: \.self) { element in
-                            HStack {
-                                scheduleDetails(stringElement: element)
-                                whereAbouts(stringElement: element)
-                                    .offset(y: -1)
                             }
                         }
                     }
                 }
                 crnUI(inputCRN: crn)
                     .padding(.vertical, 9)
-                Button(action: {
-                    withAnimation(.easeOut(duration: 0.25)) {
-                        isExpanded.toggle()
-                    }
-                }) {
-                    Image(systemName: isExpanded ? "x.circle.fill" : "arrow.down.circle.fill")
-                        .foregroundColor(.black)
-                }.offset(y: 10)
+                if scheduleArray.count > 1 {
+                    buttonDropdown
+                }
             }
         }
         .padding(.horizontal, 12)
-        .padding(.vertical, isExpanded ? (scheduleArray.count > 1 ? 9 : 2) : 0)
+        .padding(.vertical, 3)
         .background(RoundedRectangle(cornerRadius: 32).fill(Color.white))
     }
     
+    private var buttonDropdown: some View {
+        Button(action: {
+            withAnimation(.easeOut(duration: 0.25)) {
+                isExpanded.toggle()
+            }
+        }) {
+            Image(systemName: isExpanded ? "x.circle.fill" : "arrow.down.circle.fill")
+                .foregroundColor(.black)
+        }.offset(y: 10)
+    }
 
-    
     private var status: some View {
         Text(classStatus ?? "N/A")
             .font(.system(size: 11, weight: .bold))
@@ -76,11 +76,10 @@ struct scheduleRows: View {
     }
     
     private func getSchedules(inputData: String) -> String {
-        let result = inputData.components(separatedBy: "/")
-        if result.count >= 2 {
-            return result[0].replacingOccurrences(of: "·", with: "") + " at " + result[1]
-        }
-        return inputData
+        print("entering getschedules")
+        let result = inputData.filter { $0 != "·"}.components(separatedBy: "/")
+        print(result)
+        return result[1] + " " + result[2]
     }
     
     private func whereAbouts(stringElement: String) -> some View {

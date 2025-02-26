@@ -46,7 +46,7 @@ struct elementHeader: View {
             HStack(spacing: 4){
                 newRedCircle()
                     .frame(width: 12, height: 12)
-                Text("Would take again: \(wouldTakeAgain ?? "")%")
+                Text("Would take again: \(wouldTakeAgain ?? "")")
                     .foregroundStyle(.white)
                     .font(.system(size: 11, weight: .bold, design: .default))
             }

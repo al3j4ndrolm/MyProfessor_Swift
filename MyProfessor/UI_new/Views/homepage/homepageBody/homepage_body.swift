@@ -32,29 +32,12 @@ struct homepage_body: View {
         }
         .padding(.top , 20)
         .navigationDestination(isPresented: $searchInisiated) {
-            SearchedProfessors(departmentAndCourseNumber: textFormatter(), quarterYear: quarters[selectedQuarter ? 0 : 1].termText)
+            SearchedProfessors(quarters: quarters[selectedQuarter ? 0 : 1], departmentAndCourseNumber: searchText)
             //MARK: Todo = Figure out this quarters tuple structure
         }
     }
     
-    private func textFormatter() -> String {
-        if searchText.count < 5 {
-            return "" // MATH1 is a minimum  number of characters, if less invalid
-        }
-        
-        if searchText.contains(" ") && searchText.count >= 6 {
-            return searchText.components(separatedBy: " ").joined()
-            //MATH 1A // COMM 1
-        }
-        if let firstNonDigit = searchText.firstIndex(where: { $0.isNumber }) {
-            let department = String(searchText[..<firstNonDigit])
-            let courseCode = String(searchText[firstNonDigit...])
-            return department + courseCode
-            //MATH1C //COMM1
-        }
-        //All other cases where the input is messy
-        return ""
-    }
+  
     
     
     var defaultPaddingValue: CGFloat = 20
@@ -112,7 +95,7 @@ struct homepage_body: View {
     
     private var magnifyingGlassButton: some View {
         Button(action: {
-            if textFormatter() == "" {
+            if searchText == "" {
                showWarning = true
             }
             else {
@@ -137,7 +120,7 @@ struct homepage_body: View {
                     showWarning = false
                 }
                 .onSubmit {
-                    if textFormatter() == "" {
+                    if searchText == "" {
                        showWarning = true
                     }
                     else {
