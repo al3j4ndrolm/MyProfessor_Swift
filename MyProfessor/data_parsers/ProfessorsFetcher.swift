@@ -136,13 +136,11 @@ class ProfessorsFetcher: ObservableObject {
         }
     }
 }
-
-// ✅ Professor Model
-struct Professor {
+class Professor: ObservableObject {
     var name: String
     var allSchedules: [String: [String]] // classCode: [schedules]
-    var numRatings: String = ""
-    var difficulty: String = ""
-    var overallRating: String = ""
-    var wouldTakeAgain: String = ""
+    init(name: String, allSchedules: [String : [String]]) {
+        self.name = name
+        self.allSchedules = allSchedules
+    }
 }

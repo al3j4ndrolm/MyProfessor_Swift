@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct elementHeader: View {
-    @State var professorName: String
-    @Binding var Loading: Bool
-    
-    @State var ratings: String?
-    @State var difficulty: String?
-    @State var wouldTakeAgain: String?
+    let professorName: String
+    let ratings: String?
+    let difficulty: String?
+    let wouldTakeAgain: String?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
                 professorNameComponent
-                loadingComponent
+            professorStatistics
                 .padding(.leading, 5)
         }
     }
@@ -27,16 +25,6 @@ struct elementHeader: View {
         Text(professorName)
             .foregroundStyle(.white)
             .font(.system(size: 20, weight: .bold, design: .default))
-    }
-    
-    private var loadingComponent: some View {
-        VStack {
-            if !Loading {
-                threeColorDots(width: 45, height: 12) //Wil make another component of 3 loading colour dots that will be animated
-            } else {
-                professorStatistics //MARK: Todo = Ratings, Difficulty, Would Take again
-            }
-        }
     }
     
     private var professorStatistics: some View {
@@ -67,9 +55,3 @@ struct elementHeader: View {
     
     
 }
-
-#Preview {
-    ZStack {
-        backgroundColorLight()
-        elementHeader(professorName: "Vinh Nguyen", Loading: .constant(true), ratings: "4.5", difficulty: "1.8", wouldTakeAgain: "94")
-    }}

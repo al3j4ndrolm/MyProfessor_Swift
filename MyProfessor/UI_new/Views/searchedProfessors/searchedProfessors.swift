@@ -7,41 +7,54 @@
 
 import SwiftUI
 
-//Root
-
-struct searchedProfessors: View {
+struct SearchedProfessors: View {
     @State var departmentAndCourseNumber: String? = "MATH 1D"
     @State var quarterYear: String? = "Winter 2025"
-    
-    //Professor and Ratings caller here --> var ProfessorList
-    
+    @StateObject var professorsFetcher = ProfessorsFetcher()
+    @State var loadProfessors: Bool = true
+
     var body: some View {
         ZStack {
             backgroundColorLight()
             VStack(alignment: .leading, spacing: 0) {
-                searchedProfessorsHeader(
-                    departmentAndCourseNumber: departmentAndCourseNumber,
-                    quarterYear: quarterYear)
-                .padding(.leading, 20)
+                searchedProfessorsHeader(departmentAndCourseNumber: departmentAndCourseNumber,
+                                           quarterYear: quarterYear)
+                    .padding(.leading, 20)
                 searchedProfessorsBody
                 Spacer()
-                
+            }
+        }
+        .onAppear {
+            Task {
+                await professorsFetcher.getAllProfessors(className: "MATH",
+                                                         classCode: "1D",
+                                                         termCode: "S2025")
+                loadProfessors = false
+                print(professorsFetcher.Professors.values)
+                    //Get professors, send Instructions to Child view
             }
         }
     }
     
-    //Foreach Professors -> , Loading == loading time for .onappear {}
     private var searchedProfessorsBody: some View {
-            ScrollView() {
-                VStack(alignment: .leading) {
-                elementHeader(professorName: "Vinh Nguyen", Loading: .constant(true))
-                        .padding(.leading)
-                courseInformation() //allschedules: [string: [string]], courseStatus: [string:string]
+        if loadProfessors {
+            AnyView(
+            loadingPage()) //This is just a rough idea, still very buggy!
+        } else {
+            AnyView(
+            ScrollView {
+                VStack(spacing: 10) {
+           
+                    ForEach(Array(professorsFetcher.Professors.values), id: \.name) { professor in
+                        ProfessorRowView(professor: professor)
+                        //Child View takes professor name, and searches with it
+                        //The object needed will be processed there
+                    }
+                }
+                .padding(.horizontal)
             }
-        }.padding(.top, 25)
+            )
+        }
     }
 }
 
-#Preview {
-    searchedProfessors()
-}

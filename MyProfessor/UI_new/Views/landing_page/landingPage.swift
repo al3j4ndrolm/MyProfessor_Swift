@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct landingPage: View {
+    @State var trueer: Bool = false
     var body: some View {
         ZStack {
             backgroundColor()
@@ -19,12 +20,20 @@ struct landingPage: View {
                     HStack {
                         Spacer()
                         landingPageLoginValidationButton()
+                        Button(action: {
+                            trueer = true
+                        })
+                        {
+                            Text("test")
+                        }
                         Spacer()
                     }
                     Spacer()
                 }
                  Spacer()
             }
+        }.navigationDestination(isPresented: $trueer) {
+            SearchedProfessors()
         }
     }
 }

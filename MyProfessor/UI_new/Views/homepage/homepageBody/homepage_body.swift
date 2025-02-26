@@ -32,7 +32,7 @@ struct homepage_body: View {
         }
         .padding(.top , 20)
         .navigationDestination(isPresented: $searchInisiated) {
-            searchedProfessors(departmentAndCourseNumber: textFormatter(), quarterYear: quarters[selectedQuarter ? 0 : 1].termText)
+            SearchedProfessors(departmentAndCourseNumber: textFormatter(), quarterYear: quarters[selectedQuarter ? 0 : 1].termText)
             //MARK: Todo = Figure out this quarters tuple structure
         }
     }
