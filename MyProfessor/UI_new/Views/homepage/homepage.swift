@@ -21,7 +21,7 @@ struct homepage: View {
                 Spacer()
                 
                 loginButton(isd: "20555154", pin: "020202")
-                testButton()
+
                 registerNavigation()
                     .padding(.horizontal, 15)
                     .padding(.bottom, 45)

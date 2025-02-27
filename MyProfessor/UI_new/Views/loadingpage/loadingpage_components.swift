@@ -15,9 +15,15 @@ struct loadingpage_circles: View {
 }
 
 struct loadingpage_backbutton: View {
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
-        navigation_backbutton()
-            .padding(.leading, 20)
+        Button(action: {
+            dismiss()
+        }) {
+            navigation_backbutton()
+                .padding(.leading, 20)
+        }
     }
 }
 

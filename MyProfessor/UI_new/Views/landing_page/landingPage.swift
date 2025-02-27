@@ -23,12 +23,11 @@ struct landingPage: View {
                     }
                     Spacer()
                 }
-                 Spacer()
+                Spacer()
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
-
 #Preview {
     landingPage()
 }

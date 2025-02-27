@@ -15,7 +15,6 @@ struct homepage_body: View {
     @State var showWarning: Bool = false
     @State var quarters: [(termText: String, termCode: String)] = [(termText: "Fetching...", termCode: "NA"), (termText: "Fetching...", termCode: "NA")]
     //bro wrote an essay
-    @State var searchFormatted: [String] = ["",""]
     
     var body: some View {
         VStack{
@@ -33,35 +32,10 @@ struct homepage_body: View {
         }
         .padding(.top , 20)
         .navigationDestination(isPresented: $searchInisiated) {
-            searchedClassSchedules(
-                term: quarters[selectedQuarter ? 0 : 1].0.components(separatedBy: " "),
-                classInput: searchFormatted
-            )
+            SearchedProfessors(quarters: quarters[selectedQuarter ? 0 : 1], departmentAndCourseNumber: searchText)
+            //MARK: Todo = Figure out this quarters tuple structure
         }
     }
-    
-    private func textFormatter() -> [String] {
-        if searchText.count < 5 {
-            return [] // MATH1 is a minimum  number of characters, if less invalid
-        }
-        
-        if searchText.contains(" ") && searchText.count >= 6 {
-            return searchText.components(separatedBy: " ")
-            //MATH 1A // COMM 1
-        }
-        if let firstNonDigit = searchText.firstIndex(where: { $0.isNumber }) {
-            let department = String(searchText[..<firstNonDigit])
-            let courseCode = String(searchText[firstNonDigit...])
-            return [department, courseCode]
-            //MATH1C //COMM1
-        }
-        //All other cases where the input is messy
-        return []
-    }
-    
-    
-    var defaultPaddingValue: CGFloat = 20
-    
     
     private var quarterButtons: some View {
         VStack {
@@ -78,7 +52,7 @@ struct homepage_body: View {
         }
         .padding(.leading, 30)
         .padding(.trailing, 100)
-        .padding(.top, defaultPaddingValue)
+        .padding(.top)
     }
         
     
@@ -115,8 +89,7 @@ struct homepage_body: View {
     
     private var magnifyingGlassButton: some View {
         Button(action: {
-            searchFormatted = textFormatter()
-            if searchFormatted == [] {
+            if searchText == "" {
                showWarning = true
             }
             else {
@@ -137,12 +110,8 @@ struct homepage_body: View {
     private var searchBarHomepage: some View {
         ZStack(alignment: .leading) {
             TextField("", text: $searchText)
-                .onChange(of: searchText) {
-                    showWarning = false
-                }
                 .onSubmit {
-                    searchFormatted = textFormatter()
-                    if searchFormatted == [] {
+                    if searchText == "" {
                        showWarning = true
                     }
                     else {

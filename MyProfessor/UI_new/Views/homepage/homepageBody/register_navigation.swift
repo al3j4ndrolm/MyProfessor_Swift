@@ -12,14 +12,18 @@ let darkGreenForGreenButtonText = Color(red: 0.01, green: 0.25, blue: 0.14)
 
 
 struct registerNavigation: View {
+    
+    @State private var navigateToLandingPage: Bool = false
     var body: some View {
         Button(action: {
-            print("Take to register view")
+            navigateToLandingPage = true
         }) {
             registerButtonBody
+        }.navigationDestination(isPresented: $navigateToLandingPage) {
+            landingPage()
         }
     }
-    
+
     private var registerButtonBody: some View {
         rectangleRegisterButton
             .overlay(registerButtonPrompt)
