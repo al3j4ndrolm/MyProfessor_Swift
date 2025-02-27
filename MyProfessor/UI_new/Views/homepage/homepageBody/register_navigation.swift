@@ -20,7 +20,7 @@ struct registerNavigation: View {
         }) {
             registerButtonBody
         }.navigationDestination(isPresented: $navigateToLandingPage) {
-            landingPage()
+            loginPage()
         }
     }
 
