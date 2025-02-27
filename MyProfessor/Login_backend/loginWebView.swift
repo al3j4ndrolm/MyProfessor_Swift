@@ -6,7 +6,7 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
     private var sid: String = ""
     private var pin: String = ""
     private var hasCheckedLogin = false  // ✅ Prevents multiple checks
-
+    var studentName: String = "Testing"
     override init() {
         super.init()
         setupWebView()
@@ -43,8 +43,8 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("✅ Page Loaded!")
 
-        if !hasCheckedLogin {  // ✅ Prevent duplicate calls
-            hasCheckedLogin = true  // ✅ Mark that login is checked
+        if !hasCheckedLogin {
+            hasCheckedLogin = true
 
             inputInformation(webView, data: self.sid, inputFieldId: "UserID")
             inputInformation(webView, data: self.pin, inputFieldId: "PIN")
@@ -52,11 +52,23 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self.checkIsValidStudent(webView) { isValid in
-                    self.completionHandler?(isValid)  // ✅ Return result to caller
+                    self.completionHandler?(isValid)
+
+                    if isValid {  // ✅ Only get student name after successful login
+                        self.getStudentName(webView) { name in
+                            if let studentName = name {
+                                print("✅ Student's Name: \(studentName)")
+                                self.studentName = studentName // ✅ Store it for later use
+                            } else {
+                                print("❌ Failed to get student's name.")
+                            }
+                        }
+                    }
                 }
             }
         }
     }
+
 
     /// ✅ Inputs credentials into the webpage
     private func inputInformation(_ webView: WKWebView, data: String, inputFieldId: String) {
@@ -68,6 +80,34 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
     private func pressLoginButton(_ webView: WKWebView) {
         let jsCode = "document.querySelector('input[type=\"submit\"][value=\"Login\"]').click();"
         webView.evaluateJavaScript(jsCode, completionHandler: nil)
+    }
+    
+    private func getStudentName(_ webView: WKWebView, completion: @escaping (String?) -> Void) {
+        let jsCode = """
+                (function() {
+                    let element = document.querySelectorAll('.pagebodydiv td.pldefault')[1];
+                    if (element) {
+                        let text = element.textContent.trim(); // Get text and remove extra spaces
+
+                        // Extract the first name using regex
+                        let match = text.match(/Welcome,\\s+(\\w+)/);
+                        return match ? match[1] : null;  
+                    }
+                    return null; // Return null if element not found
+                })();
+                """
+
+        webView.evaluateJavaScript(jsCode) { (result, error) in
+            if let error = error {
+                print("JavaScript Execution Failed: \(error)")
+                completion(nil)
+            } else if let name = result as? String {
+                self.studentName = name  // ✅ Store the extracted name
+                completion(name)
+            } else {
+                completion(nil)
+            }
+        }
     }
 
     /// ✅ Checks if login was successful

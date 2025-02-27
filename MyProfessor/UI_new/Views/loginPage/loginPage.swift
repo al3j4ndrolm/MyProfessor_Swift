@@ -39,7 +39,7 @@ struct loginPage: View {
             homepage(username: "Guest")
         }
         .navigationDestination(isPresented: $navigateAsStudent) {
-            homepage(username: "Alejandro")
+            homepage(username: studentID)
         }
         .navigationDestination(isPresented: $navigateToCreatePin) {
             createPin()
@@ -112,13 +112,7 @@ struct loginPage: View {
     }
     
     private func loginButton(isd: String, pin: String) {
-        loginManager.checkLoginCredentials(username: isd, password: pin) { isValid in
-            if isValid {
-                navigateAsStudent = true
-            } else {
-                navigateAsStudent = false
-            }
-        }
+        loginManager
     }
 }
 
