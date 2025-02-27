@@ -19,10 +19,6 @@ struct homepage: View {
                 homepage_header(username: username)
                 homepage_body()
                 Spacer()
-                
-                // Testing login
-                loginButton(isd: "", pin: "")
-
                 registerNavigation()
                     .padding(.horizontal, 15)
                     .padding(.bottom, 45)
@@ -33,5 +29,5 @@ struct homepage: View {
 }
 
 #Preview {
-    homepage(username: "Leonard")
+    homepage(username: "Leonard ")
 }
