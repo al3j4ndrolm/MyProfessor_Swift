@@ -6,7 +6,7 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
     private var sid: String = ""
     private var pin: String = ""
     private var hasCheckedLogin = false  // ✅ Prevents multiple checks
-
+    var studentName: String = "Testing"
     override init() {
         super.init()
         setupWebView()
@@ -23,14 +23,24 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
     }
 
     /// ✅ Ensures old login attempts do not interfere with new ones
-    func checkLoginCredentials(username: String, password: String, completion: @escaping (Bool) -> Void) {
+    func checkLoginCredentials(username: String, password: String, completion: @escaping (Bool, String?) -> Void) {
         print("Inside function")
 
-        setupWebView()  // ✅ Reset WebView before starting login
-        self.completionHandler = completion
+        setupWebView()
+        self.completionHandler = { isValid in
+            if isValid {
+                self.getStudentName(self.webView!) { name in
+                    self.studentName = name ?? ""  // ✅ Store name in class variable
+                    completion(true, self.studentName)  // ✅ Return both isValid & studentName
+                }
+            } else {
+                completion(false, nil)
+            }
+        }
+        
         self.sid = username
         self.pin = password
-        self.hasCheckedLogin = false  // ✅ Reset check flag
+        self.hasCheckedLogin = false
 
         let loginURL = URL(string: "https://ssb-prod.ec.fhda.edu/PROD/bwskfreg.P_AltPin")!
         let request = URLRequest(url: loginURL)
@@ -39,12 +49,13 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
         print("End function")
     }
 
+
     /// ✅ Ensures `didFinish` only runs ONCE per login attempt
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("✅ Page Loaded!")
 
-        if !hasCheckedLogin {  // ✅ Prevent duplicate calls
-            hasCheckedLogin = true  // ✅ Mark that login is checked
+        if !hasCheckedLogin {
+            hasCheckedLogin = true
 
             inputInformation(webView, data: self.sid, inputFieldId: "UserID")
             inputInformation(webView, data: self.pin, inputFieldId: "PIN")
@@ -52,11 +63,19 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self.checkIsValidStudent(webView) { isValid in
-                    self.completionHandler?(isValid)  // ✅ Return result to caller
+                    if isValid {
+                        self.getStudentName(webView) { name in
+                            self.studentName = name ?? ""
+                            self.completionHandler?(true)  // ✅ Now executes after name is fetched!
+                        }
+                    } else {
+                        self.completionHandler?(false)
+                    }
                 }
             }
         }
     }
+
 
     /// ✅ Inputs credentials into the webpage
     private func inputInformation(_ webView: WKWebView, data: String, inputFieldId: String) {
@@ -68,6 +87,34 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
     private func pressLoginButton(_ webView: WKWebView) {
         let jsCode = "document.querySelector('input[type=\"submit\"][value=\"Login\"]').click();"
         webView.evaluateJavaScript(jsCode, completionHandler: nil)
+    }
+    
+    private func getStudentName(_ webView: WKWebView, completion: @escaping (String?) -> Void) {
+        let jsCode = """
+                (function() {
+                    let element = document.querySelectorAll('.pagebodydiv td.pldefault')[1];
+                    if (element) {
+                        let text = element.textContent.trim(); // Get text and remove extra spaces
+
+                        // Extract the first name using regex
+                        let match = text.match(/Welcome,\\s+(\\w+)/);
+                        return match ? match[1] : null;  
+                    }
+                    return null; // Return null if element not found
+                })();
+                """
+
+        webView.evaluateJavaScript(jsCode) { (result, error) in
+            if let error = error {
+                print("JavaScript Execution Failed: \(error)")
+                completion(nil)
+            } else if let name = result as? String {
+                self.studentName = name  // ✅ Store the extracted name
+                completion(name)
+            } else {
+                completion(nil)
+            }
+        }
     }
 
     /// ✅ Checks if login was successful

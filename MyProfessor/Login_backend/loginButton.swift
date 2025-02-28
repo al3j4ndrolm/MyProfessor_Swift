@@ -15,11 +15,13 @@ struct loginButton: View {
         VStack {
             Button(action: {
                 print("Button clicked")
-                headlessWebView.checkLoginCredentials(username: isd, password: pin) { isValid in
-                    if isValid {
-                        print("✅ Login Successful! Proceeding...")
-                    } else {
-                        print("❌ Login Failed! Prompting user to retry...")
+                headlessWebView.checkLoginCredentials(username: isd, password: pin) { isValid, studentName in
+                    DispatchQueue.main.async {
+                        if isValid {
+                            print("✅ Student Name: \(studentName ?? "Unknown")")  // ✅ Ensure name is printed before navigating
+                        } else {
+                            print("❌ Login failed")
+                        }
                     }
                 }
             }) {
