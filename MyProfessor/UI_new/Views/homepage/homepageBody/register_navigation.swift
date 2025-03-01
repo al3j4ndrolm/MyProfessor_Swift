@@ -9,8 +9,6 @@ import SwiftUI
 
 let darkGreenForGreenButtonText = Color(red: 0.01, green: 0.25, blue: 0.14)
 
-
-
 struct registerNavigation: View {
     
     @State private var navigateToLandingPage: Bool = false
