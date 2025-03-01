@@ -21,6 +21,8 @@ struct homepage_body: View {
             searchByClassText
             searchNavigationBody
             quarterButtons
+            registrationButton(sid: "20555154", pin: "020202")
+            
             Spacer()
         }
         .onAppear {
