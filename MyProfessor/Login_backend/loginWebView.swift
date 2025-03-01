@@ -23,14 +23,24 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
     }
 
     /// ✅ Ensures old login attempts do not interfere with new ones
-    func checkLoginCredentials(username: String, password: String, completion: @escaping (Bool) -> Void) {
+    func checkLoginCredentials(username: String, password: String, completion: @escaping (Bool, String?) -> Void) {
         print("Inside function")
 
-        setupWebView()  // ✅ Reset WebView before starting login
-        self.completionHandler = completion
+        setupWebView()
+        self.completionHandler = { isValid in
+            if isValid {
+                self.getStudentName(self.webView!) { name in
+                    self.studentName = name ?? ""  // ✅ Store name in class variable
+                    completion(true, self.studentName)  // ✅ Return both isValid & studentName
+                }
+            } else {
+                completion(false, nil)
+            }
+        }
+        
         self.sid = username
         self.pin = password
-        self.hasCheckedLogin = false  // ✅ Reset check flag
+        self.hasCheckedLogin = false
 
         let loginURL = URL(string: "https://ssb-prod.ec.fhda.edu/PROD/bwskfreg.P_AltPin")!
         let request = URLRequest(url: loginURL)
@@ -38,6 +48,7 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
 
         print("End function")
     }
+
 
     /// ✅ Ensures `didFinish` only runs ONCE per login attempt
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -53,7 +64,6 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self.checkIsValidStudent(webView) { isValid in
                     self.completionHandler?(isValid)
-
                     if isValid {  // ✅ Only get student name after successful login
                         self.getStudentName(webView) { name in
                             if let studentName = name {

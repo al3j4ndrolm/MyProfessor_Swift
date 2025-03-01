@@ -13,6 +13,7 @@ struct loginPage: View {
     @State private var navigateAsGuest: Bool = false
     @State private var navigateAsStudent: Bool = false
     @State private var navigateToCreatePin: Bool = false
+    @State var studentName: String = ""
     @State var studentID: String = ""
     @State var pin: String = ""
     
@@ -112,7 +113,18 @@ struct loginPage: View {
     }
     
     private func loginButton(isd: String, pin: String) {
-        loginManager
+        loginManager.checkLoginCredentials(username: isd, password: pin) { isValid, studentName in
+            DispatchQueue.main.async {
+                if isValid {
+                    self.navigateAsStudent = true
+                    self.studentName = studentName!
+                    print("✅ Student Name is: \(studentName ?? "Unknown")")  // ✅ Ensure name is printed before navigating
+                } else {
+                    self.navigateAsStudent = false
+                    print("❌ Login failed")
+                }
+            }
+        }
     }
 }
 
