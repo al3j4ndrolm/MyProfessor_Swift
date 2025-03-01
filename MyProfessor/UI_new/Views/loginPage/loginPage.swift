@@ -40,7 +40,7 @@ struct loginPage: View {
             homepage(username: "Guest")
         }
         .navigationDestination(isPresented: $navigateAsStudent) {
-            homepage(username: studentName)
+            homepage(username: studentID)
         }
         .navigationDestination(isPresented: $navigateToCreatePin) {
             createPin()
