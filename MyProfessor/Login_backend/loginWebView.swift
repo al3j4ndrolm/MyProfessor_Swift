@@ -63,13 +63,16 @@ class HeadlessLogInWebViewManager: NSObject, WKNavigationDelegate {
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self.checkIsValidStudent(webView) { isValid in
-                    if isValid {
+                    self.completionHandler?(isValid)
+                    if isValid {  // ✅ Only get student name after successful login
                         self.getStudentName(webView) { name in
-                            self.studentName = name ?? ""
-                            self.completionHandler?(true)  // ✅ Now executes after name is fetched!
+                            if let studentName = name {
+                                print("✅ Student's Name: \(studentName)")
+                                self.studentName = studentName // ✅ Store it for later use
+                            } else {
+                                print("❌ Failed to get student's name.")
+                            }
                         }
-                    } else {
-                        self.completionHandler?(false)
                     }
                 }
             }
