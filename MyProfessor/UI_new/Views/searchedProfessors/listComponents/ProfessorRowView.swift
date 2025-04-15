@@ -13,12 +13,10 @@ struct ProfessorRowView: View {
     @State private var isLoading = true
     
     // Initialize with default values to avoid binding errors.
-    @State private var ratings: ProfessorRating = ProfessorRating(
-        overallRating: "N/A",
-        numRatings: "N/A",
-        wouldTakeAgain: "N/A",
-        difficulty: "N/A"
+    @State private var ratings: ProfessorRatings = ProfessorRatings(
+        difficulty: "0.0", overallRating: "0.0", ratingsQuantity: "N/A", wouldTakeAgain: "N/A"
     )
+
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -39,9 +37,10 @@ struct ProfessorRowView: View {
             }
         }
         .task {
-            // Fetch the ratings asynchronously.
-            if let fetchedRatings = await getProfessorRating(for: professor.name) {
-                ratings = fetchedRatings
+            do {
+            ratings = try await GetProfessorRatings(professor: professor.name)
+            } catch {
+                
             }
             isLoading = false
         }
