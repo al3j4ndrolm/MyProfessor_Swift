@@ -10,9 +10,7 @@ import SwiftUI
 struct courseInformation: View {
     
     @State var allSchedules: [String:[String]]
-    //Change allschedules on appear with a call to get professor schedule
-    @State private var classStatus: String? = "Open" // logic issue here but whatever
-    //We need to find a way to connect the class status with their respective Crns
+    @State private var classStatus: String? = "Open" 
     
     var body: some View {
         VStack(alignment: .leading,spacing: 10) {

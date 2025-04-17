@@ -21,7 +21,6 @@ struct homepage_body: View {
             searchByClassText
             searchNavigationBody
             quarterButtons
-            registrationButton(sid: "20555154", pin: "020202")
             
             Spacer()
         }
@@ -35,7 +34,6 @@ struct homepage_body: View {
         .padding(.top , 20)
         .navigationDestination(isPresented: $searchInisiated) {
             SearchedProfessors(quarters: quarters[selectedQuarter ? 0 : 1], departmentAndCourseNumber: searchText)
-            //MARK: Todo = Figure out this quarters tuple structure
         }
     }
     

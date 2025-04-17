@@ -12,7 +12,6 @@ struct ProfessorRowView: View {
     @ObservedObject var professor: Professor
     @State private var isLoading = true
     
-    // Initialize with default values to avoid binding errors.
     @State private var ratings: ProfessorRatings = ProfessorRatings(
         difficulty: "0.0", overallRating: "0.0", ratingsQuantity: "N/A", wouldTakeAgain: "N/A"
     )
@@ -25,14 +24,16 @@ struct ProfessorRowView: View {
                     professorName: formatName(professor.name),
                     ratings: ratings.overallRating,
                     difficulty: ratings.difficulty,
-                    wouldTakeAgain: ratings.wouldTakeAgain
+                    wouldTakeAgain: ratings.wouldTakeAgain,
+                    numReview: ratings.ratingsQuantity
                 )
             } else {
                 elementHeader(
                     professorName: formatName(professor.name),
                     ratings: ratings.overallRating,
                     difficulty: ratings.difficulty,
-                    wouldTakeAgain: ratings.wouldTakeAgain
+                    wouldTakeAgain: ratings.wouldTakeAgain,
+                    numReview: ratings.ratingsQuantity
                 )
             }
         }

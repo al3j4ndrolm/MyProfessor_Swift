@@ -20,7 +20,6 @@ struct RegisterBody: View {
                 .foregroundStyle(.white)
                 .padding(.leading, 20)
             quarterButtons
-            //Chosen quarter can just be here, the registration logic should be done in the other view, buttons
             Text("\(quarters[selectedQuarter ? 0 : 1].termText)")
                 .font(.system(size: 24, weight: .bold, design: .default))
                 .foregroundStyle(.white)
