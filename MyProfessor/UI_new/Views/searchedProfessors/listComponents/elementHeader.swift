@@ -12,6 +12,7 @@ struct elementHeader: View {
     let ratings: String?
     let difficulty: String?
     let wouldTakeAgain: String?
+    let numReview: String?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -21,10 +22,30 @@ struct elementHeader: View {
         }
     }
     
+    private func shortenProfessorName(_ fullName: String) -> String {
+        var parts = fullName.split(separator: " ").map(String.init)
+        
+        if parts.count >= 2 {
+            let lastName = parts[1]
+            if lastName.count > 8 {
+                parts[1] = String(lastName.first!) + "."
+            }
+        }
+        
+        return parts.joined(separator: " ")
+    }
+    
     private var professorNameComponent: some View {
-        Text(professorName)
-            .foregroundStyle(.white)
-            .font(.system(size: 20, weight: .bold, design: .default))
+        HStack(alignment: .bottom, spacing: 4) {
+            Text(shortenProfessorName(professorName))
+                .foregroundStyle(.white)
+                .font(.system(size: 20, weight: .bold, design: .default))
+            Text(numReview ?? "0" + "reviews")
+                .font(.system(size: 8, weight: .semibold))
+                .foregroundStyle(.white)
+            EmailProfessorBtn()
+                .padding(.leading, 9)
+        }
     }
     
     private var professorStatistics: some View {

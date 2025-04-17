@@ -9,10 +9,8 @@ import SwiftUI
 
 struct userClassSearchSchedulesHeader: View {
     
-    let term: [String]?   // List of term(e.g., ["Fall", "2024"])
-    let classInputs: [String]? // List of class input (e.g., ["Math", "1A"])
-    //The class inputs have already been filtered down to searchable strings.
-    //If any errors from the function come back than we show the error in Body not header.
+    let term: [String]?
+    let classInputs: [String]?
     
     @Environment(\.dismiss) var dismiss
     
@@ -26,8 +24,6 @@ struct userClassSearchSchedulesHeader: View {
             
         }.ignoresSafeArea(.all)
     }
-    
-    //Organizing
     private var topHeader: some View {
         HStack {
             backButton
@@ -51,7 +47,6 @@ struct userClassSearchSchedulesHeader: View {
             navigation_backbutton()
         }
     }
-    //Components
     private var courseDepartmentAndCourseCode: some View {
         VStack {
             if let classInputs = classInputs,
@@ -80,7 +75,7 @@ struct userClassSearchSchedulesHeader: View {
                     .foregroundStyle(.white)
             }
             else {
-                Text("Error with fetching terms") // if this ever happends then the function broke
+                Text("Error with fetching terms")
                     .font(.system(size: 15, weight: .semibold, design: .default))
                     .foregroundStyle(.red)
             }
@@ -90,11 +85,7 @@ struct userClassSearchSchedulesHeader: View {
     
     
 }
-/*Font ->
- Text("")
-     .font(.system(size: 15, weight: .semibold, design: .default))
-     .foregroundStyle(.white)
-*/
+
 #Preview {
     userClassSearchSchedulesHeader(term: ["Fall", "2025"], classInputs: ["Math","1A"])
 }

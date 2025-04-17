@@ -19,9 +19,6 @@ struct homepage: View {
                 homepage_header(username: username)
                 homepage_body()
                 Spacer()
-                registerNavigation()
-                    .padding(.horizontal, 15)
-                    .padding(.bottom, 45)
             }
         }
         .navigationBarBackButtonHidden()

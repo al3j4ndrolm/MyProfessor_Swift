@@ -92,7 +92,6 @@ struct SearchedProfessors: View {
     private var searchedProfessorsBody: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                
                 ForEach(Array(professorsFetcher.Professors.values), id: \.name) { professor in
                     ProfessorRowView(professor: professor)
                     //Child View takes professor name, and searches with it
@@ -100,9 +99,7 @@ struct SearchedProfessors: View {
                     courseInformation(allSchedules: professor.allSchedules)
                 }
             }
-            .padding(.horizontal)
+            
         }
     }
 }
-
-

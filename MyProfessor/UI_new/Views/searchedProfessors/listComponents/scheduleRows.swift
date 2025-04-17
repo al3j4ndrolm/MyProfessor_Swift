@@ -14,9 +14,10 @@ struct scheduleRows: View {
     
     @State private var isExpanded: Bool = false
     
+    
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .top) {
+            HStack {
                 status
                 VStack(alignment: .leading, spacing: 0) {
                     if !isExpanded {
@@ -40,7 +41,7 @@ struct scheduleRows: View {
                 }
             }
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, scheduleArray[0].count > 20 ? 10 : 12)
         .padding(.vertical, 3)
         .background(RoundedRectangle(cornerRadius: 32).fill(Color.white))
     }
@@ -54,7 +55,7 @@ struct scheduleRows: View {
         }) {
             Image(systemName: isExpanded ? "x.circle.fill" : "arrow.down.circle.fill")
                 .foregroundColor(.black)
-        }.offset(y: 10)
+        }
     }
 
     private var status: some View {

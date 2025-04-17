@@ -18,6 +18,7 @@ struct homepage_header: View {
             dateText
         }
         .padding(.leading, 20)
+        .padding(.top, 45)
         .ignoresSafeArea()
     }
     
@@ -26,35 +27,16 @@ struct homepage_header: View {
             threeColorDots(width: 80, height: 20)
                 .padding(.top, 55)
             Spacer()
-            menuDropdown
-                .padding(.top, 50)
-                .padding(.trailing, 20)
         }
-    }
-    
-    //Notes: I dont know what kind of animation or feature you want here, so ill leave it for later
-    private var menuDropdown: some View {
-        Image(systemName: "line.3.horizontal")
-            .font(.system(size: 48, weight: .bold, design: .default))
-            .foregroundStyle(.white)
     }
     
     private var welcomeGuestUsername: some View {
         HStack{
-            if username != ""{
-                Text("Welcome back,\n\(username)")
+                Text("Welcome back!")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                     .foregroundStyle(.white)
                     .padding(.top, 20)
-            }
-            else {
-                Text("Welcome back")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.white)
-                    .padding(.top, 20)
-            }
             Spacer()
         }
     }
