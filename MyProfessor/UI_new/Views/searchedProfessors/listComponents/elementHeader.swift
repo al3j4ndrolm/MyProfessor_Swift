@@ -43,8 +43,9 @@ struct elementHeader: View {
             Text(numReview ?? "0" + "reviews")
                 .font(.system(size: 8, weight: .semibold))
                 .foregroundStyle(.white)
-            EmailProfessorBtn()
-                .padding(.leading, 9)
+            //MARK: TEMP COMMENT OUT, BECAUSE WE DONT HAVE EMAIL FUNC YET
+           // EmailProfessorBtn()
+                //.padding(.leading, 9)
         }
     }
     

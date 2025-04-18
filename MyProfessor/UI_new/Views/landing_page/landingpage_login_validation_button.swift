@@ -28,7 +28,7 @@ struct landingPageLoginValidationButton: View {
         }
         .padding(.top, 59)
         .navigationDestination(isPresented: $navigateAsGuest) {
-            homepage(username: "Guest")
+            homepage()
         }
         .navigationDestination(isPresented: $navigateAsStudent) {
             loginPage()

@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct userNavigationFlow: View {
+    @StateObject private var RSModel = RecentSearchModel()
+    
+    
     var body: some View {
         NavigationStack {
-            landingPage()
-        }
+            homepage()
+        }.environmentObject(RSModel)
     }
 }
 

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct homepage_header: View {
     
-    @State var username: String
     
     var body: some View {
         VStack {
@@ -54,5 +53,5 @@ struct homepage_header: View {
 }
 
 #Preview {
-    homepage_header(username: "Leonard")
+    homepage_header()
 }

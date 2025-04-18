@@ -38,7 +38,7 @@ struct createPin: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $navigateAsGuest) {
-            homepage(username: "Guest")
+            homepage()
         }
     }
   

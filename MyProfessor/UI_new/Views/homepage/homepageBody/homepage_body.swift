@@ -11,18 +11,16 @@ struct homepage_body: View {
     
     @State var searchInisiated: Bool = false
     @State var searchText: String = ""
-    @State var selectedQuarter: Bool = true
+    @State var selectedQuarter: Bool = false
     @State var showWarning: Bool = false
     @State var quarters: [(termText: String, termCode: String)] = [(termText: "Fetching...", termCode: "NA"), (termText: "Fetching...", termCode: "NA")]
-    //bro wrote an essay
-    
+    @EnvironmentObject var RSManager: RecentSearchModel
     var body: some View {
         VStack{
             searchByClassText
             searchNavigationBody
             quarterButtons
             
-            Spacer()
         }
         .onAppear {
             Task {
@@ -103,6 +101,7 @@ struct homepage_body: View {
     }
     
     private func searchClassByText() {
+        RSManager.add(quarter: quarters[selectedQuarter ? 0 : 1].termText + " " + quarters[selectedQuarter ? 0 : 1].termCode, searchText: searchText)
         searchInisiated = true
     }
     
@@ -128,10 +127,10 @@ struct homepage_body: View {
                 .padding(.leading, 13)
             if searchText.isEmpty {
                 Text("Ex. Math 1A")
-                    .font(.subheadline) // Set the font to subheadline
-                    .italic() // Apply italic style
-                    .fontWeight(.semibold) // Apply font weight
-                    .foregroundColor(.secondary.opacity(0.7)) // Set placeholder color
+                    .font(.subheadline) 
+                    .italic()
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary.opacity(0.7))
                     .padding(.leading, 31)
                     .padding(.vertical, 12)
                 
