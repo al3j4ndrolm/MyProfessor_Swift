@@ -32,16 +32,6 @@ struct RSbtn: View {
         return input
     }
     
-    private func quarterTextCleanerForSearch(str: String) -> (String, String) {
-        let full = str.components(separatedBy: " ")
-        return (full[0], full[2])
-    }
-    
-    private func quarterTextCleaner(str: String) -> String {
-        let full = str.components(separatedBy: " ")
-        return String(full[0] + " " + full[1])
-    }
-    
     private var button: some View {
         HStack {
             Text(formatterRSBtn(in: btnSearchText).uppercased() + " - " + quarterTextCleaner(str: quarterTextBtn))
