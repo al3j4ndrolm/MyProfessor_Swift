@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
-
+//MARK: OLDVIEW
+//This view needs to be edited since were not doing login like we thought
+//PROBABLY SCRAPPED!
 struct loginPage: View {
     
-    @State private var loginManager = HeadlessLogInWebViewManager()
     @State private var navigateAsGuest: Bool = false
     @State private var navigateAsStudent: Bool = false
     @State private var navigateToCreatePin: Bool = false
@@ -37,10 +38,10 @@ struct loginPage: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $navigateAsGuest) {
-            homepage(username: "Guest")
+            homepage()
         }
         .navigationDestination(isPresented: $navigateAsStudent) {
-            homepage(username: studentID)
+            homepage()
         }
         .navigationDestination(isPresented: $navigateToCreatePin) {
             createPin()
@@ -83,7 +84,6 @@ struct loginPage: View {
     
     private var navigation: some View {
         VStack(alignment: .center, spacing: 0) {
-            LoginButton
             LoginPageSpacerBetweenGuestAndLoginButton
             GuestButton
         }
@@ -97,35 +97,12 @@ struct loginPage: View {
         }
     }
     
-    private var LoginButton: some View {
-        Button(action: {
-            loginButton(isd: studentID, pin: pin)
-        }) {
-            Spacer()
-            BlueButtonUI
-                .padding(.top, 20)
-            Spacer()
-        }
-    }
+ 
     
     private func continueAsGuest() {
         navigateAsGuest = true
     }
     
-    private func loginButton(isd: String, pin: String) {
-        loginManager.checkLoginCredentials(username: isd, password: pin) { isValid, studentName in
-            DispatchQueue.main.async {
-                if isValid {
-                    self.navigateAsStudent = true
-                    self.studentName = studentName!
-                    print("✅ Student Name is: \(studentName ?? "Unknown")")  // ✅ Ensure name is printed before navigating
-                } else {
-                    self.navigateAsStudent = false
-                    print("❌ Login failed")
-                }
-            }
-        }
-    }
 }
 
 #Preview {

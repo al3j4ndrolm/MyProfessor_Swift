@@ -35,6 +35,8 @@ struct SearchedProfessors: View {
             }
         }
         .onAppear {
+            print(quarters)
+            print(departmentAndCourseNumber)
             departmentAndCourseNumber = cleaningUserInput(userInput: departmentAndCourseNumber ?? "").uppercased()
             Task {
                 await professorsFetcher.getAllProfessors(
@@ -94,8 +96,6 @@ struct SearchedProfessors: View {
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(Array(professorsFetcher.Professors.values), id: \.name) { professor in
                     ProfessorRowView(professor: professor)
-                    //Child View takes professor name, and searches with it
-                    //The object needed will be processed there
                     courseInformation(allSchedules: professor.allSchedules)
                 }
             }

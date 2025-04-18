@@ -9,15 +9,14 @@ import SwiftUI
 
 struct homepage: View {
     
-    @State var username: String
-    
     var body: some View {
         
         ZStack {
             backgroundColor()
-            VStack {
-                homepage_header(username: username)
+            VStack(alignment: .leading) {
+                homepage_header()
                 homepage_body()
+                recentSearchView()
                 Spacer()
             }
         }
@@ -26,5 +25,5 @@ struct homepage: View {
 }
 
 #Preview {
-    homepage(username: "Leonard ")
+    homepage()
 }
